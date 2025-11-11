@@ -1,0 +1,384 @@
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #222;
+  background: #f4f5f7;
+}
+
+:root,
+.mat-app-background,
+.mat-mdc-card,
+.mat-mdc-surface,
+.mat-mdc-form-field,
+.mat-drawer-container,
+.mat-expansion-panel,
+mat-card,
+div[formGroupName],
+section,
+form {
+  background: #ffffff !important;
+  --mat-sys-surface: #ffffff !important;
+  --mat-sys-background: #ffffff !important;
+  --mat-sys-surface-container: #ffffff !important;
+  --mat-sys-surface-container-highest: #ffffff !important;
+  --mat-sys-surface-container-lowest: #ffffff !important;
+  --mdc-theme-surface-tint-color: transparent !important;
+}
+
+
+.profile-header {
+  position: relative;
+  width: 100%;
+  height: 55vh;
+  background: url("assets/hed.jpg") center top / cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; 
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  color: #fff;
+}
+
+
+.header-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.35)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.header-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  width: 90%;
+  gap: 1rem;
+  text-align: left;
+}
+
+
+.header-text {
+  flex: 1 1 500px;
+  animation: fadeInUp 1s ease;
+}
+
+.header-text h1 {
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.header-text p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #f3f3f3;
+}
+
+
+.header-logo {
+  position: absolute;
+  top: 30px;   
+  left: 40px;  
+}
+
+.header-logo img {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 3px 8px rgba(255, 255, 255, 0.7));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.header-logo img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.9));
+}
+
+@media (max-width: 992px) {
+  .profile-header {
+    height: 50vh;
+    background-position: center;
+  }
+
+  .header-text h1 {
+    font-size: 2rem;
+  }
+
+  .header-text p {
+    font-size: 1rem;
+  }
+
+  .header-logo {
+    top: 30px;
+    left: 30px;
+  }
+
+  .header-logo img {
+    width: 110px;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    height: 45vh;
+    background-position: top;
+  }
+
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .header-text {
+    flex: none;
+    width: 100%;
+    margin-top: 30px;
+  }
+
+  .header-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-text p {
+    font-size: 0.95rem;
+  }
+
+  .header-logo {
+    top: 20px;
+    left: 20px;
+  }
+
+  .header-logo img {
+    width: 90px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-header {
+    height: 40vh;
+  }
+
+  .header-logo {
+    top: 15px;
+    left: 15px;
+  }
+
+  .header-logo img {
+    width: 75px;
+  }
+
+  .header-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .header-text p {
+    font-size: 0.9rem;
+  }
+}
+
+
+.container {
+  max-width: 1120px;
+  margin: 24px auto;
+  padding: 16px 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+mat-card,
+.mat-mdc-card,
+div[formGroupName] {
+  position: relative;
+  background-color: #ffffff !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+  padding: 24px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+mat-card:hover {
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+mat-card,
+.mat-mdc-card {
+  position: relative;
+  overflow: hidden;
+}
+
+
+mat-card::before,
+.mat-mdc-card::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 100px;
+  height: 70px;
+  background-image: url("assets/Sfw-Logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: top left;
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+
+mat-card.mat-section .mat-mdc-card-content::after,
+.mat-mdc-card.mat-section .mat-mdc-card-content::after {
+  content: "";
+  position: absolute;
+  bottom: 8px;
+  right: 12px; 
+  width: 90px;
+  height: 60px;
+  background-image: url("assets/Sfw-Logo.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom right;
+  opacity: 0.15; 
+  
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+mat-card.mat-section * {
+  position: relative;
+  z-index: 1;
+}
+
+
+
+mat-card *,
+.mat-mdc-card * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  mat-card::before,
+  .mat-mdc-card::before,
+  mat-card::after,
+  .mat-mdc-card::after {
+    width: 80px;
+    height: 50px;
+    opacity: 0.14;
+  }
+}
+
+@media (max-width: 600px) {
+  mat-card::before,
+  .mat-mdc-card::before,
+  mat-card::after,
+  .mat-mdc-card::after {
+    width: 60px;
+    height: 40px;
+    opacity: 0.16;
+  }
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-2,
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+  margin-top: 24px;
+}
+
+button[mat-raised-button] {
+  background-color: #3f51b5 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #303f9f !important;
+}
+
+button[mat-stroked-button] {
+  border-color: #3f51b5 !important;
+  color: #3f51b5 !important;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+button[mat-stroked-button]:hover {
+  background-color: #e8eaf6 !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+

@@ -1,15 +1,13 @@
-import "zone.js"; // ✅ Required for Angular change detection
-
+import "zone.js";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { provideRouter } from "@angular/router";
-// import { provideAnimations } from "@angular/platform-browser/animations"; // optional
-
-import { routes } from "./app.routes";
-import { RootComponent } from "./root.component"; // ✅ this will now resolve correctly
+import { provideAnimations } from "@angular/platform-browser/animations"; 
+import { routes } from "./app.routes"; 
+import { RootComponent } from "./root.component";
 
 bootstrapApplication(RootComponent, {
   providers: [
     provideRouter(routes),
-    // provideAnimations(), // optional
+    provideAnimations(), 
   ],
 }).catch((err) => console.error(err));

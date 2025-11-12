@@ -16,6 +16,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { LocationService } from "./services/location.service";
 import { FileInputComponent } from "./components/file-input/file-input.component";
 
+import { RecaptchaModule, RecaptchaFormsModule } from "ng-recaptcha";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatIconModule } from "@angular/material/icon";
@@ -45,6 +46,8 @@ type Option = { id: number | string; name: string };
     MatDatepickerModule,
     MatNativeDateModule,
     FileInputComponent,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"],
@@ -54,15 +57,13 @@ export class AppComponent {
   private fb = inject(FormBuilder);
   private locationService = inject(LocationService);
 
- 
   employeeForm: FormGroup;
-
+  captchaVerified = false; // ✅ new variable to track captcha status
 
   countries = signal<Option[]>([]);
   states = signal<Option[]>([]);
   cities = signal<Option[]>([]);
 
- 
   genderOptions: Option[] = [
     { id: "male", name: "Male" },
     { id: "female", name: "Female" },
@@ -81,7 +82,6 @@ export class AppComponent {
   ];
 
   constructor() {
-    
     this.employeeForm = this.fb.group({
       personal_information: this.fb.group({
         first_name: ["", Validators.required],
@@ -132,12 +132,13 @@ export class AppComponent {
         emergency_contact_name: [""],
         blood_group: [""],
       }),
+      recaptcha: ["", Validators.required],
     });
 
-  
+    // 🌎 Load country data
     this.countries.set(this.locationService.getCountries());
 
-    
+    // 👤 Update full name dynamically
     const personal = this.personal_information;
     personal
       .get("first_name")
@@ -148,7 +149,7 @@ export class AppComponent {
       ?.valueChanges.pipe(takeUntilDestroyed())
       .subscribe(() => this.updateFullName());
 
-   
+    // 🌍 Country-State-City chaining
     const contact = this.contact_information;
     contact
       .get("country")
@@ -182,7 +183,6 @@ export class AppComponent {
       });
   }
 
- 
   private updateFullName(): void {
     const first = this.personal_information.get("first_name")?.value || "";
     const last = this.personal_information.get("last_name")?.value || "";
@@ -191,29 +191,34 @@ export class AppComponent {
       ?.setValue(`${first} ${last}`.trim());
   }
 
-  /** Handle form submission */
+  // 🔐 Captcha Handler
+  onCaptchaResolved(response: string): void {
+    console.log("✅ reCAPTCHA resolved:", response);
+    this.employeeForm.get("recaptcha")?.setValue(response);
+    this.captchaVerified = !!response; // ✅ Enable submit button only when verified
+  }
+
   onSubmit(): void {
     this.employeeForm.markAllAsTouched();
 
-    if (this.employeeForm.invalid) {
-      alert("❌ Please fill out all required fields correctly.");
+    if (this.employeeForm.invalid || !this.captchaVerified) {
+      alert("❌ Please fill out all required fields and verify reCAPTCHA.");
       console.warn("Form invalid:", this.employeeForm);
       return;
     }
 
     const payload = this.employeeForm.getRawValue();
     console.log("✅ Payload sent successfully:", payload);
-
     alert("✅ Form submitted successfully!");
   }
 
- 
   onReset(): void {
     this.employeeForm.reset();
+    this.captchaVerified = false; // ✅ Reset captcha state
     console.log("🔄 Form reset complete");
   }
 
-
+  // Getters
   get personal_information() {
     return this.employeeForm.get("personal_information") as FormGroup;
   }

@@ -1,30 +1,30 @@
-
+.alaign items-center {
+  align-items: center;
+}
 .home-container {
   position: relative;
   height: 100vh;
   width: 100%;
-  background-image: url("../../assets/hr.jpg"); 
+  background-image: url("../../assets/home .jpg");
   background-size: cover;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  animation: fadeIn 1.2s ease-out;
+  animation: bgZoom 12s ease-in-out infinite alternate;
+  opacity: 100%;
 }
 
 
 .overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(
     to bottom right,
-    rgba(0, 0, 0, 0.55),
-    rgba(0, 0, 0, 0.35)
+    rgba(255, 255, 255, 0.65),
+    rgba(245, 245, 245, 0.75)
   );
   z-index: 0;
 }
@@ -34,70 +34,164 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  color: #ffffff;
+  color: #1e293b;
   max-width: 800px;
   padding: 40px 20px;
-  line-height: 1.3;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  animation: slideUp 1s ease-out;
-  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  line-height: 1.4;
+  animation: fadeInUp 1.2s ease-out;
 }
 
+
 .content h1 {
-  font-size: clamp(2rem, 4vw, 3.5rem); 
+  font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
+  color: #0f172a;
   margin-bottom: 20px;
-  letter-spacing: 0.5px;
-  white-space: normal;
-  word-break: break-word;
-  text-align: center;
-  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSeq 1s 0.2s forwards;
 }
 
 
 .content p {
-  font-size: clamp(1rem, 1.5vw, 1.25rem);
-  color: #e0e0e0;
-  font-weight: 400;
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: #334155;
   margin-bottom: 40px;
-  line-height: 1.6;
-  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSeq 1s 0.6s forwards;
 }
 
 
-button[mat-raised-button] {
+.glow-on-hover {
+  width: 220px;
+  height: 55px;
+  border: none;
+  outline: none;
+  color: #fff;
   font-size: 1rem;
   font-weight: 600;
-  padding: 14px 36px;
-  border-radius: 50px;
-  background: linear-gradient(135deg, #3f51b5, #5c6bc0);
-  color: #ffffff;
-  box-shadow: 0 8px 20px rgba(63, 81, 181, 0.4);
-  transition: all 0.3s ease-in-out;
-  border: none;
-}
-
-button[mat-raised-button]:hover {
-  background: linear-gradient(135deg, #3949ab, #283593);
-  transform: scale(1.07);
-  box-shadow: 0 0 20px rgba(63, 81, 181, 0.7);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+  margin-top: 150px; 
+  transition: transform 0.3s ease-in-out;
+  animation: fadeUpButton 1.2s ease-out 0.8s forwards;
+  opacity: 1;
+  transform: translateY(20px);
 }
 
 
-@keyframes fadeIn {
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(6px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 12px;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 1;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+}
+
+.glow-on-hover:hover {
+  transform: scale(1.05);
+  background: #1a1a1a;
+}
+
+.glow-on-hover:active {
+  color: #000;
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+.glow-on-hover .arrow {
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.glow-on-hover:hover .arrow {
+  transform: translateX(6px);
+}
+
+
+@keyframes glowing {
   0% {
-    opacity: 0;
-    transform: scale(1.03);
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
   }
   100% {
-    opacity: 1;
-    transform: scale(1);
+    background-position: 0 0;
   }
 }
 
-@keyframes slideUp {
+
+@keyframes fadeUpButton {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+  
+
+.home-logo img {
+  width: 220px;               /* ✅ roughly matches button width */
+  height: auto;
+  display: block;
+  margin: 20px auto 40px auto; /* centers and adds spacing */
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.home-logo img:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+
+
+@keyframes fadeInUp {
   0% {
     opacity: 0;
     transform: translateY(30px);
@@ -108,90 +202,403 @@ button[mat-raised-button]:hover {
   }
 }
 
+@keyframes fadeSeq {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bgZoom {
+  0% {
+    background-size: 100% auto;
+  }
+  100% {
+    background-size: 110% auto;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .home-logo {
+    top: 20px;
+    right: 20px;
+  }
+
+  .home-logo img {
+    width: 100px;
+  }
+
+  .glow-on-hover {
+    margin-top: 100px;
+  }
+}
 
 @media (max-width: 768px) {
-  .content {
-    padding: 20px;
+  .home-container {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: repeat-y; /* ✅ Fills vertically */
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.7),
+      rgba(235, 235, 235, 0.8)
+    );
+  }
+.home-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../../assets/home .jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  animation: bgZoom 12s ease-in-out infinite alternate;
+}
+
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.65),
+    rgba(245, 245, 245, 0.75)
+  );
+  z-index: 0;
+}
+
+
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #1e293b;
+  max-width: 800px;
+  padding: 40px 20px;
+  line-height: 1.4;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+
+.content h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSeq 1s 0.2s forwards;
+}
+
+
+.content p {
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  color: #334155;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSeq 1s 0.6s forwards;
+}
+
+
+.glow-on-hover {
+  width: 220px;
+  height: 55px;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 12px;
+  margin-top: 150px; 
+  transition: transform 0.3s ease-in-out;
+  animation: fadeUpButton 1.2s ease-out 0.8s forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.glow-on-hover:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(6px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing 20s linear infinite;
+  opacity: 0.;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 12px;
+}
+
+.glow-on-hover:hover:before {
+  opacity: 0.15;
+}
+
+.glow-on-hover:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #111;
+  left: 0;
+  top: 0;
+  border-radius: 12px;
+}
+
+.glow-on-hover:hover {
+  transform: scale(1.05);
+  background: #1a1a1a;
+}
+
+.glow-on-hover:active {
+  color: #000;
+}
+
+.glow-on-hover:active:after {
+  background: transparent;
+}
+
+
+.glow-on-hover .arrow {
+  display: inline-block;
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.glow-on-hover:hover .arrow {
+  transform: translateX(6px);
+}
+
+
+@keyframes glowing {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+@keyframes fadeUpButton {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.home-logo img {
+  width: 120px;
+  height: auto;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+
+.home-logo img:hover {
+  transform: scale(1.07);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSeq {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bgZoom {
+  0% {
+    background-size: 100% auto;
+  }
+  100% {
+    background-size: 110% auto;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .home-logo {
+    top: 20px;
+    right: 20px;
+  }
+
+  .home-logo img {
+    width: 100px;
+  }
+
+  .glow-on-hover {
+    margin-top: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: repeat-y; /* ✅ Fills vertically */
+  }
+  .home-logo img {
+    width: 160px; /* medium devices */
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.7),
+      rgba(235, 235, 235, 0.8)
+    );
   }
 
   .content h1 {
-    font-size: 2.2rem;
+    font-size: 2.1rem;
   }
 
   .content p {
     font-size: 1rem;
-    margin-bottom: 30px;
   }
 
-  button[mat-raised-button] {
-    padding: 10px 26px;
-    font-size: 0.95rem;
+  .glow-on-hover {
+    width: 180px;
+    height: 50px;
+    font-size: 0.9rem;
+    margin-top: 80px;
   }
 }
 
 @media (max-width: 480px) {
+  .home-container {
+    background-size: contain;
+    background-position: center top;
+    background-repeat: repeat; 
+  }
+
+  .overlay {
+    background: linear-gradient(
+      to bottom right,
+      rgba(245, 245, 245, 0.8),
+      rgba(255, 255, 255, 0.8)
+    );
+  }
+
+  .home-logo img {
+    width: 130px;
+  }
+
   .content h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .content p {
     font-size: 0.9rem;
   }
 
-  button[mat-raised-button] {
-    padding: 9px 22px;
+  .glow-on-hover {
+    width: 160px;
+    height: 48px;
+    font-size: 0.85rem;
+    margin-top: 70px;
   }
 }
 
-.home-logo {
-  position: absolute;
-  top: 30px;       
-  right: 50px;     
-  z-index: 10;     
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.home-logo img {
-  width: 130px;
-  height: auto;
-  filter: drop-shadow(0 3px 8px rgba(255, 255, 255, 0.8));
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.home-logo img:hover {
-  transform: scale(1.05);
-  filter: drop-shadow(0 5px 12px rgba(255, 255, 255, 1));
-}
-
-
-@media (max-width: 992px) {
-  .home-logo {
-    top: 25px;
-    right: 30px;
   }
-  .home-logo img {
-    width: 110px;
-  }
-}
 
-@media (max-width: 768px) {
-  .home-logo {
-    top: 20px;
-    right: 20px;
+  .content h1 {
+    font-size: 2.1rem;
   }
-  .home-logo img {
-    width: 90px;
+
+  .content p {
+    font-size: 1rem;
   }
-}
+
+  .glow-on-hover {
+    width: 180px;
+    height: 50px;
+    font-size: 0.9rem;
+    margin-top: 80px;
+  }
+
 
 @media (max-width: 480px) {
-  .home-logo {
-    top: 15px;
-    right: 15px;
+  .home-container {
+    background-size: contain;
+    background-position: center top;
+    background-repeat: repeat; 
   }
+
+  .overlay {
+    background: linear-gradient(
+      to bottom right,
+      rgba(245, 245, 245, 0.8),
+      rgba(255, 255, 255, 0.8)
+    );
+  }
+
   .home-logo img {
-    width: 70px;
+    width: 75px;
+  }
+
+  .content h1 {
+    font-size: 1.6rem;
+  }
+
+  .content p {
+    font-size: 0.9rem;
+  }
+
+  .glow-on-hover {
+    width: 160px;
+    height: 48px;
+    font-size: 0.85rem;
+    margin-top: 70px;
   }
 }
+.glow-on-hover:before {
+    filter: blur(12px);
+    opacity: 1;
+    animation: glowing 10s linear infinite;
+  }

@@ -19,8 +19,9 @@
     "@angular/core": "^20.3.0",
     "@angular/forms": "^20.3.10",
     "@angular/material": "^20.2.12",
-    "@angular/platform-browser": "^20.3.0",
+    "@angular/platform-browser": "^20.3.10",
     "@angular/router": "^20.3.10",
+    "ng-recaptcha": "^13.2.1",
     "rxjs": "^7.8.2",
     "tailwindcss": "latest",
     "zone.js": "^0.15.1"

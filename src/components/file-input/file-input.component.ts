@@ -36,7 +36,9 @@ export class FileInputComponent implements ControlValueAccessor {
   multiple = input<boolean>(false);
   accept = input<string>("*/*");
 
-  id = `file-input-${Math.random().toString(36).substring(2, 9)}`;
+  /** 🔥 Fully accessible unique ID */
+  inputId = "file_" + Math.random().toString(36).substring(2, 9);
+
   selectedFileNames = signal<string[]>([]);
   isDragging = signal(false);
 
@@ -59,9 +61,11 @@ export class FileInputComponent implements ControlValueAccessor {
       this.selectedFileNames.set([]);
     }
   }
+
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
@@ -70,25 +74,30 @@ export class FileInputComponent implements ControlValueAccessor {
     const files = (event.target as HTMLInputElement).files;
     this.handleFiles(files);
   }
+
   onDragOver(e: DragEvent): void {
     e.preventDefault();
     e.stopPropagation();
     this.isDragging.set(true);
   }
+
   onDragLeave(e: DragEvent): void {
     e.preventDefault();
     e.stopPropagation();
     this.isDragging.set(false);
   }
+
   onDrop(e: DragEvent): void {
     e.preventDefault();
     e.stopPropagation();
     this.isDragging.set(false);
+
     const files = e.dataTransfer?.files;
     if (files) {
       this.handleFiles(files);
-      if (this.fileInput()?.nativeElement)
+      if (this.fileInput()?.nativeElement) {
         this.fileInput().nativeElement.files = files;
+      }
     }
   }
 
@@ -106,8 +115,9 @@ export class FileInputComponent implements ControlValueAccessor {
 
   clearFiles(): void {
     this.selectedFileNames.set([]);
-    if (this.fileInput()?.nativeElement)
+    if (this.fileInput()?.nativeElement) {
       this.fileInput().nativeElement.value = "";
+    }
     this.onChange(null);
     this.onTouched();
   }

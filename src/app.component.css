@@ -13,7 +13,7 @@ body {
 .mat-app-background,
 .mat-mdc-card,
 .mat-mdc-surface,
-.mat-mdc-form-field,
+
 .mat-drawer-container,
 .mat-expansion-panel,
 mat-card,
@@ -28,6 +28,7 @@ form {
   --mat-sys-surface-container-lowest: #ffffff !important;
   --mdc-theme-surface-tint-color: transparent !important;
 }
+
 
 
 .profile-header {
@@ -590,5 +591,158 @@ mat-card:hover {
     width: 90%;
     max-width: 300px;
     font-size: 0.95rem;
+  }
+}
+/* 🏢 Header Logo — Fixed Responsive for Chrome, Edge, Safari */
+.header-logo {
+  position: absolute;
+  top: clamp(10px, 3vw, 30px);
+  left: clamp(10px, 4vw, 40px);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  pointer-events: auto;
+  transform: translateZ(0); 
+}
+
+/* 🌈 Logo Image */
+.header-logo img {
+  width: min(20vw, 140px);  
+  min-width: 80px;        
+  max-width: 140px;       
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+
+  transition: transform 0.4s ease, filter 0.4s ease, box-shadow 0.4s ease;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.4))
+          drop-shadow(0 0 12px rgba(0, 255, 213, 0.25))
+          drop-shadow(0 0 18px rgba(0, 43, 255, 0.2));
+  animation: logoGlow 6s ease-in-out infinite alternate;
+  will-change: transform, filter;
+}
+
+
+.header-logo img:hover {
+  transform: scale(1.08) rotate(0.5deg);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))
+          drop-shadow(0 0 24px rgba(0, 255, 213, 0.6))
+          drop-shadow(0 0 36px rgba(122, 0, 255, 0.4));
+  box-shadow: 0 0 20px rgba(0, 255, 213, 0.3),
+              0 0 40px rgba(0, 43, 255, 0.25);
+}
+
+@keyframes logoGlow {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4))
+            drop-shadow(0 0 14px rgba(0, 255, 213, 0.25))
+            drop-shadow(0 0 20px rgba(0, 43, 255, 0.2));
+  }
+  100% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.8))
+            drop-shadow(0 0 28px rgba(0, 255, 213, 0.5))
+            drop-shadow(0 0 32px rgba(122, 0, 255, 0.4));
+  }
+}
+
+@media (max-width: 768px) {
+  .header-logo img {
+    width: min(28vw, 110px);
+  }
+}
+
+@media (max-width: 480px) {
+  .header-logo img {
+    width: min(35vw, 90px);
+  }
+}
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  background: #ffffff !important;    
+  border-radius: 8px !important;
+}
+
+.mat-form-field-flex {
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  padding-right: 10px !important;
+}
+
+.mat-input-element {
+  color: #000 !important;         
+  font-weight: 500 !important;
+}
+
+.mdc-text-field--outlined .mdc-notched-outline {
+  display: none !important;
+}
+
+mat-form-field .mat-mdc-form-field-flex {
+  background: #ffffff !important;
+  border: 1px solid #d9d9d9 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  transition: all 0.25s ease !important;
+  box-shadow: none !important;
+}
+
+
+mat-form-field input.mat-input-element,
+mat-form-field .mat-mdc-select-value {
+  color: #222 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+}
+
+mat-form-field .mat-mdc-floating-label {
+  color: #7a7a7a !important;
+  font-weight: 500 !important;
+}
+
+mat-form-field.mat-focused .mat-mdc-form-field-flex {
+  border-color: #3f51b5 !important;
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15) !important;
+}
+
+
+mat-form-field:hover .mat-mdc-form-field-flex {
+  border-color: #bfbfbf !important;
+}
+
+
+mat-form-field.mat-mdc-form-field-invalid .mat-mdc-form-field-flex {
+  border-color: #e63946 !important;
+  box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15) !important;
+}
+
+mat-error {
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  margin-top: 3px !important;
+  color: #e63946 !important;
+}
+
+
+.mat-mdc-select-arrow svg {
+  fill: #555 !important;
+}
+
+.mat-mdc-select-panel {
+  border-radius: 10px !important;
+  background: #ffffff !important;
+  border: 1px solid #dedede !important;
+}
+
+@media (max-width: 480px) {
+  mat-form-field .mat-mdc-form-field-flex {
+    padding: 12px !important;
+    border-width: 1.3px !important;
+  }
+
+  input.mat-input-element {
+    font-size: 16px !important;
   }
 }

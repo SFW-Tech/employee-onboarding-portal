@@ -1,18 +1,39 @@
 <div class="file-input-wrapper">
-  <label [for]="id" class="file-label">{{ label() }}</label>
 
-  <div class="file-dropzone"
-       [class.dragging]="isDragging()"
-       (click)="triggerFileInputClick()"
-       (dragover)="onDragOver($event)"
-       (dragleave)="onDragLeave($event)"
-       (drop)="onDrop($event)">
+  <!-- Accessible Label -->
+  <label
+    class="file-label"
+    [attr.for]="inputId"
+    [attr.title]="label()"
+    [attr.aria-label]="label()"
+  >
+    {{ label() }}
+  </label>
+
+  <!-- Dropzone (NOT a button → only clickable div) -->
+  <div
+    class="file-dropzone"
+    [class.dragging]="isDragging()"
+    role="button"
+    tabindex="0"
+    [attr.aria-label]="label() + ' file upload'"
+    (click)="triggerFileInputClick()"
+    (keyup.enter)="triggerFileInputClick()"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+
+    <!-- No file selected -->
     <ng-container *ngIf="!selectedFileNames().length; else selected">
-      <mat-icon class="file-icon">upload_file</mat-icon>
-      <p class="upload-text"><span class="highlight">Click to upload</span> or drag and drop</p>
+      <mat-icon class="file-icon" aria-hidden="true">upload_file</mat-icon>
+      <p class="upload-text">
+        <span class="highlight">Click to upload</span> or drag and drop
+      </p>
       <p class="hint-text">{{ acceptLabel() }}</p>
     </ng-container>
 
+    <!-- Files selected -->
     <ng-template #selected>
       <div class="file-list">
         <p class="upload-text">Selected file(s):</p>
@@ -20,11 +41,31 @@
           <li *ngFor="let n of selectedFileNames()">{{ n }}</li>
         </ul>
       </div>
-      <button mat-icon-button matTooltip="Clear selected files" class="clear-btn" (click)="clearFiles()">
+
+      <!-- Clear button OUTSIDE of interactive area (fixed accessibility) -->
+      <button
+        mat-icon-button
+        type="button"
+        class="clear-btn"
+        aria-label="Clear selected files"
+        matTooltip="Clear selected files"
+        (click)="clearFiles()"
+      >
         <mat-icon>close</mat-icon>
       </button>
     </ng-template>
 
-    <input #fileInput type="file" class="hidden" [accept]="accept()" [multiple]="multiple()" (change)="onFileSelected($event)" />
+    <!-- ACTUAL NATIVE FILE INPUT (fully accessible now) -->
+    <input
+      #fileInput
+      [id]="inputId"
+      type="file"
+      class="hidden"
+      [attr.accept]="accept()"
+      [attr.multiple]="multiple() ? '' : null"
+      (change)="onFileSelected($event)"
+      aria-hidden="false"
+      [attr.title]="label()"
+    />
   </div>
 </div>

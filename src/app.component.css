@@ -603,14 +603,14 @@ mat-card:hover {
   justify-content: flex-start;
   align-items: center;
   pointer-events: auto;
-  transform: translateZ(0); /* ✅ Forces Chrome to repaint properly */
+  transform: translateZ(0); 
 }
 
 /* 🌈 Logo Image */
 .header-logo img {
-  width: min(20vw, 140px);  /* ✅ Replaces clamp() for smoother Chrome behavior */
-  min-width: 80px;          /* ✅ Ensures visibility on very small devices */
-  max-width: 140px;         /* ✅ Prevents excessive scaling */
+  width: min(20vw, 140px);  
+  min-width: 80px;        
+  max-width: 140px;       
   height: auto;
   border-radius: 10px;
   display: block;
@@ -621,10 +621,10 @@ mat-card:hover {
           drop-shadow(0 0 12px rgba(0, 255, 213, 0.25))
           drop-shadow(0 0 18px rgba(0, 43, 255, 0.2));
   animation: logoGlow 6s ease-in-out infinite alternate;
-  will-change: transform, filter; /* ✅ Helps Chrome recalc */
+  will-change: transform, filter;
 }
 
-/* 🖱️ Hover Animation */
+
 .header-logo img:hover {
   transform: scale(1.08) rotate(0.5deg);
   filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9))
@@ -634,7 +634,6 @@ mat-card:hover {
               0 0 40px rgba(0, 43, 255, 0.25);
 }
 
-/* ✨ Glow Animation */
 @keyframes logoGlow {
   0% {
     transform: scale(1);
@@ -650,7 +649,6 @@ mat-card:hover {
   }
 }
 
-/* 📱 Mobile Tweaks */
 @media (max-width: 768px) {
   .header-logo img {
     width: min(28vw, 110px);
@@ -662,9 +660,8 @@ mat-card:hover {
     width: min(35vw, 90px);
   }
 }
-/* FIX for faded inputs on mobile */
 .mat-form-field-appearance-outline .mat-form-field-outline {
-  background: #ffffff !important;    /* solid white */
+  background: #ffffff !important;    
   border-radius: 8px !important;
 }
 
@@ -675,19 +672,14 @@ mat-card:hover {
 }
 
 .mat-input-element {
-  color: #000 !important;            /* darker text */
+  color: #000 !important;         
   font-weight: 500 !important;
 }
-/* ----------------------------
-    FLAT MODERN INPUT STYLE
------------------------------ */
 
-/* Remove Angular Material outline completely */
 .mdc-text-field--outlined .mdc-notched-outline {
   display: none !important;
 }
 
-/* Create custom flat border */
 mat-form-field .mat-mdc-form-field-flex {
   background: #ffffff !important;
   border: 1px solid #d9d9d9 !important;
@@ -697,7 +689,7 @@ mat-form-field .mat-mdc-form-field-flex {
   box-shadow: none !important;
 }
 
-/* Text inside input */
+
 mat-form-field input.mat-input-element,
 mat-form-field .mat-mdc-select-value {
   color: #222 !important;
@@ -705,24 +697,22 @@ mat-form-field .mat-mdc-select-value {
   font-weight: 500 !important;
 }
 
-/* LABEL style */
 mat-form-field .mat-mdc-floating-label {
   color: #7a7a7a !important;
   font-weight: 500 !important;
 }
 
-/* ON FOCUS */
 mat-form-field.mat-focused .mat-mdc-form-field-flex {
   border-color: #3f51b5 !important;
   box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.15) !important;
 }
 
-/* ON HOVER */
+
 mat-form-field:hover .mat-mdc-form-field-flex {
   border-color: #bfbfbf !important;
 }
 
-/* ERROR STATE */
+
 mat-form-field.mat-mdc-form-field-invalid .mat-mdc-form-field-flex {
   border-color: #e63946 !important;
   box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.15) !important;
@@ -735,21 +725,17 @@ mat-error {
   color: #e63946 !important;
 }
 
-/* Select dropdown arrow color */
+
 .mat-mdc-select-arrow svg {
   fill: #555 !important;
 }
 
-/* Select panel flat style */
 .mat-mdc-select-panel {
   border-radius: 10px !important;
   background: #ffffff !important;
   border: 1px solid #dedede !important;
 }
 
-/* ----------------------------
-      MOBILE IMPROVEMENTS
------------------------------ */
 @media (max-width: 480px) {
   mat-form-field .mat-mdc-form-field-flex {
     padding: 12px !important;

@@ -26,7 +26,7 @@
   z-index: 0;
 }
 
-/* ✨ Content */
+
 .content {
   position: relative;
   z-index: 1;
@@ -38,7 +38,7 @@
   animation: fadeInUp 1.2s ease-out;
 }
 
-/* 🧱 Heading + Text */
+
 .content h1 {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 800;
@@ -58,7 +58,7 @@
   animation: fadeSeq 1s 0.6s forwards;
 }
 
-/* 🌈 Button */
+
 .glow-on-hover {
   width: 220px;
   height: 55px;
@@ -78,7 +78,6 @@
   transform: translateY(20px);
 }
 
-/* ✨ Glowing Border */
 .glow-on-hover:before {
   content: "";
   background: linear-gradient(
@@ -138,7 +137,6 @@
   transform: translateX(6px);
 }
 
-/* 🪄 Animations */
 @keyframes glowing {
   0% {
     background-position: 0 0;
@@ -185,7 +183,6 @@
   }
 }
 
-/* 🏢 Company Logo — Always same width as button */
 .home-logo img {
   width: 220px; 
   height: auto;

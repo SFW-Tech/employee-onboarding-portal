@@ -28,9 +28,7 @@
     (ngSubmit)="onSubmit()"
     aria-label="Employee Onboarding Form"
   >
-    <!-- ===========================
-         PERSONAL INFORMATION
-    ============================ -->
+  
     <mat-card
       class="mat-section"
       formGroupName="personal_information"
@@ -55,25 +53,25 @@
 
       <mat-card-content>
         <div class="grid grid-2">
-          <!-- First Name -->
+       
           <mat-form-field appearance="outline">
             <mat-label>First Name</mat-label>
             <input matInput formControlName="first_name" placeholder="Enter First Name" />
           </mat-form-field>
 
-          <!-- Last Name -->
+         
           <mat-form-field appearance="outline">
             <mat-label>Last Name</mat-label>
             <input matInput formControlName="last_name" placeholder="Enter Last Name" />
           </mat-form-field>
 
-          <!-- Full Name -->
+         
           <mat-form-field appearance="outline">
             <mat-label>Full Name</mat-label>
             <input matInput formControlName="full_name" placeholder="Full Name" readonly />
           </mat-form-field>
 
-          <!-- Gender -->
+          
           <mat-form-field appearance="outline">
             <mat-label>Gender</mat-label>
             <mat-select formControlName="gender">
@@ -87,7 +85,7 @@
             </mat-select>
           </mat-form-field>
 
-          <!-- DOB -->
+          
           <mat-form-field appearance="outline">
             <mat-label>Date of Birth</mat-label>
             <input
@@ -103,9 +101,6 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         CONTACT INFORMATION
-    ============================ -->
     <mat-card class="mat-section" formGroupName="contact_information">
       <mat-card-header>
         <mat-card-title>
@@ -126,38 +121,37 @@
 
       <mat-card-content>
         <div class="grid grid-2">
-          <!-- Email -->
+        
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="email" />
           </mat-form-field>
 
-          <!-- Phone -->
+        
           <mat-form-field appearance="outline">
             <mat-label>Phone Number</mat-label>
             <input matInput formControlName="phone_number" type="tel" />
           </mat-form-field>
 
-          <!-- Alternate Phone -->
+         
           <mat-form-field appearance="outline">
             <mat-label>Alternate Phone</mat-label>
             <input matInput formControlName="alternate_phone" type="tel" />
           </mat-form-field>
 
-          <!-- Address Line 1 -->
+          
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Address Line 1</mat-label>
             <input matInput formControlName="address_line1" />
           </mat-form-field>
 
-          <!-- Address Line 2 -->
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Address Line 2</mat-label>
             <input matInput formControlName="address_line2" />
           </mat-form-field>
 
           <div class="grid grid-3 full-width">
-            <!-- Country -->
+          
             <mat-form-field appearance="outline">
               <mat-label>Country</mat-label>
               <mat-select formControlName="country">
@@ -168,7 +162,6 @@
               </mat-select>
             </mat-form-field>
 
-            <!-- State -->
             <mat-form-field appearance="outline">
               <mat-label>State</mat-label>
               <mat-select formControlName="state">
@@ -181,7 +174,7 @@
               </mat-select>
             </mat-form-field>
 
-            <!-- City -->
+         
             <mat-form-field appearance="outline">
               <mat-label>City</mat-label>
               <mat-select formControlName="city">
@@ -204,9 +197,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         IDENTITY DOCUMENTS
-    ============================ -->
+    
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>
         <mat-card-title>Identity & Verification</mat-card-title>
@@ -244,9 +235,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         EDUCATION & CAREER
-    ============================ -->
+ 
     <mat-card class="mat-section" formGroupName="education_and_career">
       <mat-card-header>
         <mat-card-title>Education & Career</mat-card-title>
@@ -261,9 +250,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         EMPLOYMENT DOCUMENTS
-    ============================ -->
+  
     <mat-card class="mat-section" formGroupName="employment_documents">
       <mat-card-header>
         <mat-card-title>Employment Documents</mat-card-title>
@@ -278,9 +265,6 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         ADDITIONAL INFORMATION
-    ============================ -->
     <mat-card class="mat-section" formGroupName="other">
       <mat-card-header>
         <mat-card-title>Additional Information</mat-card-title>
@@ -311,9 +295,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ===========================
-         CAPTCHA + BUTTONS
-    ============================ -->
+
     <div class="actions">
       <div class="captcha-container">
         <ngx-recaptcha2

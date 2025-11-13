@@ -16,7 +16,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { LocationService } from "./services/location.service";
 import { FileInputComponent } from "./components/file-input/file-input.component";
 
-// ✅ ngx-captcha
+
 import { NgxCaptchaModule } from "ngx-captcha";
 
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -59,7 +59,7 @@ type Option = { id: number | string; name: string };
 
     FileInputComponent,
 
-    // ✅ ngx-captcha
+    
     NgxCaptchaModule,
 
     MatSnackBarModule,
@@ -217,13 +217,12 @@ export class AppComponent {
       ?.setValue(`${first} ${last}`.trim());
   }
 
-  // ✅ Captcha success
   onCaptchaResolved(token: string): void {
     this.employeeForm.get("recaptcha")?.setValue(token);
     this.captchaVerified = true;
   }
 
-  // ✅ Captcha reset handler
+
   onCaptchaReset(): void {
     this.employeeForm.get("recaptcha")?.reset();
     this.captchaVerified = false;

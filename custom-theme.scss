@@ -42,7 +42,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-form-field .mdc-notched-outline__leading,
 .mat-mdc-form-field .mdc-notched-outline__trailing,
 .mat-mdc-form-field .mdc-notched-outline__notch {
-  border-color: #d1d5db !important; /* neutral gray */
+  border-color: #d1d5db !important;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -146,7 +146,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-mdc-form-field-type-mat-select.mat-focused .mat-mdc-select-arrow {
   color: #2196f3 !important;
 }
-/* 🍏 iOS glassy toast */
+
 .toast-success, .toast-error {
   background: rgba(255, 255, 255, 0.15) !important;
   backdrop-filter: blur(12px);
@@ -171,7 +171,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-/* 🔥 Clean smooth fade+slide animation */
 @keyframes toast-pop {
   0% {
     opacity: 0;
@@ -187,9 +186,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 }
 
-/* SUCCESS TOAST – Full Green */
 .toast-success {
-  background: #2ecc71 !important; /* FULL GREEN */
+  background: #2ecc71 !important; 
   color: #ffffff !important;
   padding: 14px 20px !important;
   border-radius: 10px !important;
@@ -200,7 +198,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   box-shadow: 0 4px 18px rgba(46, 204, 113, 0.35);
 }
 
-/* ERROR TOAST (red – clean style) */
 .toast-error {
   background: #e74c3c !important;
   color: #ffffff !important;

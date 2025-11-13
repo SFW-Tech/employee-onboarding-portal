@@ -1,8 +1,7 @@
 # Multi-stage build for Angular app
 
 # Stage 1: Build the Angular app
-FROM node:stable-alpine AS build
-
+FROM node:lts-alpine3.22 AS build
 # Set working directory
 WORKDIR /app
 

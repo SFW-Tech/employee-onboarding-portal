@@ -1,0 +1,19 @@
+<svg width="600" height="220" xmlns="http://www.w3.org/2000/svg">
+  <rect width="600" height="220" fill="#dcdcdc"></rect>
+
+  <!-- Deep layer -->
+  <path d="M0 0 H600 V100 C400 220 200 40 0 160 Z" fill="#0077C8" opacity="0.30"></path>
+
+  <!-- Mid layer -->
+  <path d="M0 0 H600 V90 C400 190 200 60 0 140 Z" fill="#009FCC" opacity="0.55"></path>
+
+  <!-- Top highlight -->
+  <path d="M0 0 H600 V75 C400 155 200 75 0 120 Z" fill="url(#sg4)"></path>
+
+  <defs>
+    <linearGradient id="sg4" x1="0%" x2="100%">
+      <stop offset="0%" stop-color="#00B5D9"></stop>
+      <stop offset="100%" stop-color="#0077C8"></stop>
+    </linearGradient>
+  </defs>
+</svg>

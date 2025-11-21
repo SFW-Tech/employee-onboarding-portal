@@ -1,0 +1,211 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$magenta-palette,
+      tertiary: mat.$violet-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+.mat-mdc-form-field .mdc-notched-outline__leading,
+.mat-mdc-form-field .mdc-notched-outline__trailing,
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-color: #d1d5db !important;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mat-mdc-form-field:hover .mdc-notched-outline__leading,
+.mat-mdc-form-field:hover .mdc-notched-outline__trailing,
+.mat-mdc-form-field:hover .mdc-notched-outline__notch {
+  border-color: #9ca3af !important;
+}
+
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing,
+.mat-mdc-form-field.mat-focused .mdc-notched-outline__notch {
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 4px rgba(33, 150, 243, 0.2);
+}
+
+.mat-mdc-form-field .mdc-floating-label {
+  color: #374151 !important; 
+  transition: color 0.25s ease;
+}
+.mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #2196f3 !important;
+}
+
+
+.mat-mdc-input-element {
+  color: #111827 !important;
+}
+
+
+.mat-mdc-input-element::placeholder {
+  color: #9ca3af !important;
+}
+
+
+.mat-mdc-form-field-disabled .mdc-notched-outline__leading,
+.mat-mdc-form-field-disabled .mdc-notched-outline__trailing,
+.mat-mdc-form-field-disabled .mdc-notched-outline__notch {
+  border-color: #e5e7eb !important;
+}
+.mat-mdc-form-field-disabled .mat-mdc-input-element {
+  color: #9ca3af !important;
+}
+
+
+.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+.mat-mdc-form-field .mdc-notched-outline {
+  border-radius: 6px !important;
+}
+
+
+.mat-mdc-select-panel {
+  background-color: #ffffff !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+}
+
+
+.mat-mdc-option {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  transition: background-color 0.25s ease;
+}
+
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled),
+.mat-mdc-option.mdc-list-item--selected:not(.mdc-list-item--disabled) {
+  background-color: #e3f2fd !important; /* light blue hover */
+  color: #000000 !important;
+}
+
+
+.mat-mdc-select-placeholder {
+  color: #9ca3af !important;
+}
+
+
+.mat-mdc-select-value {
+  color: #111827 !important;
+}
+
+
+.mat-mdc-select-arrow {
+  color: #6b7280 !important;
+}
+
+
+.mat-mdc-form-field-type-mat-select.mat-focused
+  .mdc-notched-outline__leading,
+.mat-mdc-form-field-type-mat-select.mat-focused
+  .mdc-notched-outline__trailing,
+.mat-mdc-form-field-type-mat-select.mat-focused
+  .mdc-notched-outline__notch {
+  border-color: #2196f3 !important;
+  box-shadow: 0 0 4px rgba(33, 150, 243, 0.2);
+}
+.mat-mdc-form-field-type-mat-select.mat-focused .mat-mdc-select-arrow {
+  color: #2196f3 !important;
+}
+
+.toast-success, .toast-error {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 12px !important;
+  padding: 14px 20px !important;
+  letter-spacing: .4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: glass-toast 0.4s ease-out;
+}
+
+@keyframes glass-toast {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toast-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(15px) scale(0.95);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast-success {
+  background: #2ecc71 !important; 
+  color: #ffffff !important;
+  padding: 14px 20px !important;
+  border-radius: 10px !important;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .4px;
+  animation: toast-pop 0.35s ease-out;
+  box-shadow: 0 4px 18px rgba(46, 204, 113, 0.35);
+}
+
+.toast-error {
+  background: #e74c3c !important;
+  color: #ffffff !important;
+  padding: 14px 20px !important;
+  border-radius: 10px !important;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .4px;
+  animation: toast-pop 0.35s ease-out;
+  box-shadow: 0 4px 18px rgba(231, 76, 60, 0.35);
+}

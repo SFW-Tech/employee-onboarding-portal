@@ -1,18 +1,20 @@
+<!-- ============================================================
+   HEADER SECTION (Modern Welcome Banner)
+============================================================ -->
 <header class="profile-header" aria-label="Profile Header Section">
   <div class="header-logo">
     <img
-      src="/src/assets/Sfw-Logo.svg"
+      src="assets/Sfw-Logo.svg"
       alt="SFW Technologies Logo"
       title="Company Logo"
-      role="img"
     />
   </div>
 
   <div class="header-overlay">
     <div class="header-content">
       <div class="header-text">
-        <h1 aria-label="Welcome aboard heading">Welcome aboard!</h1>
-        <p>We’re excited to have you join the team.</p>
+        <h1>Welcome aboard!</h1>
+        <p>We're excited to have you join the team.</p>
         <p>
           Please complete your onboarding details so we can set up your profile
           for a smooth start.
@@ -22,23 +24,24 @@
   </div>
 </header>
 
+<!-- ============================================================
+     MAIN FORM CONTAINER
+============================================================ -->
 <div class="container">
   <form
     [formGroup]="employeeForm"
     (ngSubmit)="onSubmit()"
+    novalidate
     aria-label="Employee Onboarding Form"
   >
-  
-    <mat-card
-      class="mat-section"
-      formGroupName="personal_information"
-      aria-label="Personal Information Section"
-    >
+    <!-- ============================================================
+         PERSONAL INFORMATION
+    ============================================================ -->
+    <mat-card class="mat-section" formGroupName="personal_information">
       <mat-card-header>
         <mat-card-title>
-          <span class="icon-wrap" aria-hidden="true">
+          <span class="icon-wrap">
             <svg width="24" height="24" stroke="currentColor" fill="none">
-              <title>User Icon</title>
               <path
                 stroke-linecap="round"
                 stroke-linejoin="round"
@@ -53,93 +56,73 @@
 
       <mat-card-content>
         <div class="grid grid-2">
-       
           <mat-form-field appearance="outline">
             <mat-label>First Name</mat-label>
-            <input matInput formControlName="first_name" placeholder="Enter First Name" />
+            <input matInput formControlName="first_name" />
           </mat-form-field>
 
-         
           <mat-form-field appearance="outline">
             <mat-label>Last Name</mat-label>
-            <input matInput formControlName="last_name" placeholder="Enter Last Name" />
+            <input matInput formControlName="last_name" />
           </mat-form-field>
 
-         
           <mat-form-field appearance="outline">
             <mat-label>Full Name</mat-label>
-            <input matInput formControlName="full_name" placeholder="Full Name" readonly />
+            <input matInput formControlName="full_name" readonly />
           </mat-form-field>
 
-          
           <mat-form-field appearance="outline">
             <mat-label>Gender</mat-label>
             <mat-select formControlName="gender">
-              <mat-option value="" disabled>Select Gender</mat-option>
-              <mat-option
-                *ngFor="let option of genderOptions"
-                [value]="option.id"
-              >
-                {{ option.name }}
+              <mat-option [value]="null" disabled>Select</mat-option>
+              <mat-option *ngFor="let g of genderOptions" [value]="g.id">
+                {{ g.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          
           <mat-form-field appearance="outline">
             <mat-label>Date of Birth</mat-label>
             <input
               matInput
-              [matDatepicker]="picker"
+              [matDatepicker]="dobPicker"
               formControlName="date_of_birth"
-              placeholder="Select Date"
             />
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="dobPicker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #dobPicker></mat-datepicker>
           </mat-form-field>
         </div>
       </mat-card-content>
     </mat-card>
 
+    <!-- ============================================================
+         CONTACT INFORMATION
+    ============================================================ -->
     <mat-card class="mat-section" formGroupName="contact_information">
       <mat-card-header>
-        <mat-card-title>
-          <span class="icon-wrap" aria-hidden="true">
-            <svg width="24" height="24" stroke="currentColor" fill="none">
-              <title>Contact Icon</title>
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
-          </span>
-          Contact Information
-        </mat-card-title>
+        <mat-card-title>Contact Information</mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
         <div class="grid grid-2">
-        
           <mat-form-field appearance="outline">
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email" type="email" />
+            <input matInput formControlName="email" />
           </mat-form-field>
 
-        
           <mat-form-field appearance="outline">
             <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phone_number" type="tel" />
+            <input matInput formControlName="phone_number" />
           </mat-form-field>
 
-         
           <mat-form-field appearance="outline">
             <mat-label>Alternate Phone</mat-label>
-            <input matInput formControlName="alternate_phone" type="tel" />
+            <input matInput formControlName="alternate_phone" />
           </mat-form-field>
 
-          
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Address Line 1</mat-label>
             <input matInput formControlName="address_line1" />
@@ -151,11 +134,10 @@
           </mat-form-field>
 
           <div class="grid grid-3 full-width">
-          
             <mat-form-field appearance="outline">
               <mat-label>Country</mat-label>
               <mat-select formControlName="country">
-                <mat-option value="" disabled>Select Country</mat-option>
+                <mat-option [value]="null" disabled>Select Country</mat-option>
                 <mat-option *ngFor="let c of countries()" [value]="c.id">
                   {{ c.name }}
                 </mat-option>
@@ -165,22 +147,15 @@
             <mat-form-field appearance="outline">
               <mat-label>State</mat-label>
               <mat-select formControlName="state">
-                <mat-option value="" disabled>
-                  {{ contact_information.get("country")?.value ? "Select State" : "Select Country First" }}
-                </mat-option>
                 <mat-option *ngFor="let s of states()" [value]="s.id">
                   {{ s.name }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-         
             <mat-form-field appearance="outline">
               <mat-label>City</mat-label>
               <mat-select formControlName="city">
-                <mat-option value="" disabled>
-                  {{ contact_information.get("state")?.value ? "Select City" : "Select State First" }}
-                </mat-option>
                 <mat-option *ngFor="let c of cities()" [value]="c.id">
                   {{ c.name }}
                 </mat-option>
@@ -188,7 +163,6 @@
             </mat-form-field>
           </div>
 
-          <!-- Postal Code -->
           <mat-form-field appearance="outline">
             <mat-label>Postal Code</mat-label>
             <input matInput formControlName="postal_code" />
@@ -197,7 +171,9 @@
       </mat-card-content>
     </mat-card>
 
-    
+    <!-- ============================================================
+         IDENTITY DOCUMENTS
+    ============================================================ -->
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>
         <mat-card-title>Identity & Verification</mat-card-title>
@@ -206,10 +182,33 @@
       <mat-card-content>
         <div class="grid grid-2">
           <div class="grid grid-2 full-width">
-            <app-file-input formControlName="employee_photo" label="Employee Photo"></app-file-input>
-            <app-file-input formControlName="id_proof" label="ID Proof"></app-file-input>
-            <app-file-input formControlName="address_proof_file" label="Address Proof"></app-file-input>
-            <app-file-input formControlName="pan_card" label="PAN Card"></app-file-input>
+            <app-file-input
+              formControlName="employee_photo"
+              label="Employee Photo"
+              fileLabel="EmployeePhoto"
+              accept="image/*"
+            ></app-file-input>
+
+            <app-file-input
+              formControlName="id_proof"
+              label="Aadhaar Card"
+              fileLabel="IDProof"
+              accept="image/*,.pdf"
+            ></app-file-input>
+
+            <app-file-input
+              formControlName="pass_book"
+              label="Pass Book"
+              fileLabel="PassBook"
+              accept=".pdf,image/*"
+            ></app-file-input>
+
+            <app-file-input
+              formControlName="pan_card"
+              label="PAN Card"
+              fileLabel="PANCard"
+              accept="image/*,.pdf"
+            ></app-file-input>
           </div>
 
           <mat-form-field appearance="outline">
@@ -235,7 +234,9 @@
       </mat-card-content>
     </mat-card>
 
- 
+    <!-- ============================================================
+         EDUCATION & CAREER
+    ============================================================ -->
     <mat-card class="mat-section" formGroupName="education_and_career">
       <mat-card-header>
         <mat-card-title>Education & Career</mat-card-title>
@@ -243,28 +244,33 @@
 
       <mat-card-content>
         <div class="grid grid-3">
-          <app-file-input formControlName="educational_certificates" label="Educational Certificates"></app-file-input>
-          <app-file-input formControlName="experience_certificates" label="Experience Certificates"></app-file-input>
-          <app-file-input formControlName="resume_cv" label="Resume / CV"></app-file-input>
+          <app-file-input
+            formControlName="educational_certificates"
+            label="Graduation / Provisional Certificate"
+            fileLabel="EducationalCertificates"
+            accept=".pdf,image/*"
+          ></app-file-input>
+
+          <app-file-input
+            formControlName="experience_certificates"
+            label="Experience Certificates"
+            fileLabel="ExperienceCertificates"
+            accept=".pdf,image/*"
+          ></app-file-input>
+
+          <app-file-input
+            formControlName="resume_cv"
+            label="Updated Resume / CV"
+            fileLabel="ResumeCV"
+            accept=".pdf"
+          ></app-file-input>
         </div>
       </mat-card-content>
     </mat-card>
 
-  
-    <mat-card class="mat-section" formGroupName="employment_documents">
-      <mat-card-header>
-        <mat-card-title>Employment Documents</mat-card-title>
-      </mat-card-header>
-
-      <mat-card-content>
-        <div class="grid grid-3">
-          <app-file-input formControlName="joining_letter" label="Joining Letter"></app-file-input>
-          <app-file-input formControlName="relieving_letter" label="Relieving Letter"></app-file-input>
-          <app-file-input formControlName="other_documents" label="Other Documents"></app-file-input>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
+    <!-- ============================================================
+         ADDITIONAL INFORMATION
+    ============================================================ -->
     <mat-card class="mat-section" formGroupName="other">
       <mat-card-header>
         <mat-card-title>Additional Information</mat-card-title>
@@ -279,15 +285,24 @@
 
           <mat-form-field appearance="outline">
             <mat-label>Emergency Contact Number</mat-label>
-            <input matInput formControlName="emergency_contact_number" type="tel" />
+            <input
+              matInput
+              type="tel"
+              formControlName="emergency_contact_number"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Relation</mat-label>
+            <input matInput formControlName="emergency_contact_relation" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Blood Group</mat-label>
             <mat-select formControlName="blood_group">
-              <mat-option value="" disabled>Select Blood Group</mat-option>
-              <mat-option *ngFor="let option of bloodGroupOptions" [value]="option.id">
-                {{ option.name }}
+              <mat-option [value]="null" disabled>Select</mat-option>
+              <mat-option *ngFor="let b of bloodGroupOptions" [value]="b.id">
+                {{ b.name }}
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -295,29 +310,60 @@
       </mat-card-content>
     </mat-card>
 
-
+    <!-- ============================================================
+         CAPTCHA + BUTTONS
+    ============================================================ -->
     <div class="actions">
       <div class="captcha-container">
         <ngx-recaptcha2
-            [siteKey]="'6LdGawssAAAAAJdfBSyQc9EShLEp3N-uGbCxY04d'"
-            (success)="onCaptchaResolved($event)"
-         ></ngx-recaptcha2>
-
+          [siteKey]="'6LdGawssAAAAAJdfBSyQc9EShLEp3N-uGbCxY04d'"
+          (success)="onCaptchaResolved($event)"
+          (reset)="onCaptchaReset()"
+        ></ngx-recaptcha2>
       </div>
 
       <div class="button-group">
-        <button mat-stroked-button type="button" (click)="onReset()">Reset Form</button>
+        <button mat-stroked-button type="button" (click)="onReset()">
+          Reset
+        </button>
 
         <button
           mat-raised-button
           color="primary"
           type="submit"
-          *ngIf="captchaVerified"
-          [disabled]="employeeForm.invalid"
+          class="submit-btn"
         >
           Submit
+        </button>
+
+        <button
+          mat-flat-button
+          color="primary"
+          type="button"
+          (click)="generatePreviewFromForm()"
+        >
+          Preview ID
         </button>
       </div>
     </div>
   </form>
+</div>
+
+<!-- ============================================================
+     ID CARD PREVIEW (FRONT + BACK)
+============================================================ -->
+<div class="id-preview-container" *ngIf="frontPreviewUrl() || backPreviewUrl()">
+  <div class="preview-box" *ngIf="frontPreviewUrl()">
+    <div class="preview-title">Front Preview</div>
+    <div class="preview-card">
+      <img [src]="frontPreviewUrl()" alt="ID Card Front" />
+    </div>
+  </div>
+
+  <div class="preview-box" *ngIf="backPreviewUrl()">
+    <div class="preview-title">Back Preview</div>
+    <div class="preview-card">
+      <img [src]="backPreviewUrl()" alt="ID Card Back" />
+    </div>
+  </div>
 </div>

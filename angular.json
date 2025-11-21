@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "",
   "cli": {
-    "analytics": "3bf9ffd2-a0db-4c1a-8966-c053803d63b7",
+    "analytics": false,
     "cache": {
       "enabled": true,
       "path": "C:/angular-cache"
@@ -13,20 +13,30 @@
     "app": {
       "projectType": "application",
       "root": "",
-      "sourceRoot": "./",
+      "sourceRoot": "src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "./dist",
-              "browser": "."
-            },
+            "outputPath": "dist",
             "browser": "src/main.ts",
+            "index": "src/index.html",
             "tsConfig": "tsconfig.json",
-            "styles": ["custom-theme.scss"],
-            "assets": ["src/favicon.ico", "src/assets"]
+
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
+              },
+              {
+                "glob": "favicon.ico",
+                "input": "src",
+                "output": "."
+              }
+            ],
+            "styles": ["src/custom-theme.scss"]
           },
           "configurations": {
             "production": {
@@ -38,8 +48,9 @@
               "sourceMap": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
+
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {

@@ -10,7 +10,7 @@
     {{ label() }}
   </label>
 
-  <!-- Dropzone (NOT a button → only clickable div) -->
+  <!-- Dropzone -->
   <div
     class="file-dropzone"
     [class.dragging]="isDragging()"
@@ -27,10 +27,15 @@
     <!-- No file selected -->
     <ng-container *ngIf="!selectedFileNames().length; else selected">
       <mat-icon class="file-icon" aria-hidden="true">upload_file</mat-icon>
+
       <p class="upload-text">
         <span class="highlight">Click to upload</span> or drag and drop
       </p>
+
       <p class="hint-text">{{ acceptLabel() }}</p>
+
+      <!-- ⭐ ADDING 5 MB Limit -->
+      <p class="max-size-text">Max size: 5 MB</p>
     </ng-container>
 
     <!-- Files selected -->
@@ -42,7 +47,7 @@
         </ul>
       </div>
 
-      <!-- Clear button OUTSIDE of interactive area (fixed accessibility) -->
+      <!-- Clear button -->
       <button
         mat-icon-button
         type="button"
@@ -55,7 +60,7 @@
       </button>
     </ng-template>
 
-    <!-- ACTUAL NATIVE FILE INPUT (fully accessible now) -->
+    <!-- Native File Input -->
     <input
       #fileInput
       [id]="inputId"
@@ -67,5 +72,12 @@
       aria-hidden="false"
       [attr.title]="label()"
     />
+
   </div>
+
+  <!-- 5MB Error message -->
+  <div class="error-msg" *ngIf="errorMessage()">
+    {{ errorMessage() }}
+  </div>
+
 </div>

@@ -1,0 +1,27 @@
+<svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+
+  <!-- Smooth LIGHT GRAY upper curve -->
+  <path d="M0 40 
+           C150 10 300 10 450 40 
+           C520 55 580 70 600 75 
+           L600 0 
+           L0 0 
+           Z" fill="#dcdcdc"></path>
+
+  <!-- Smooth BLUE GRADIENT wave -->
+  <path d="M0 70 
+           C150 120 300 120 450 70
+           C520 45 580 30 600 25
+           L600 0 
+           L0 0 
+           Z" fill="url(#blueGradient)"></path>
+
+  <!-- Blue gradient identical to your sample -->
+  <defs>
+    <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4aa8ff"></stop>
+      <stop offset="100%" stop-color="#005ac8"></stop>
+    </linearGradient>
+  </defs>
+
+</svg>

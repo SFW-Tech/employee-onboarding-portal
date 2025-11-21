@@ -36,10 +36,14 @@ export class FileInputComponent implements ControlValueAccessor {
   multiple = input<boolean>(false);
   accept = input<string>("*/*");
 
-  /** 🔥 Fully accessible unique ID */
+  /** 5 MB limit (in bytes) */
+  readonly MAX_SIZE = 5 * 1024 * 1024;
+
+  /** Unique ID */
   inputId = "file_" + Math.random().toString(36).substring(2, 9);
 
   selectedFileNames = signal<string[]>([]);
+  errorMessage = signal<string | null>(null);
   isDragging = signal(false);
 
   private onChange: (value: File | FileList | null) => void = () => {};
@@ -59,6 +63,7 @@ export class FileInputComponent implements ControlValueAccessor {
     if (!value && this.fileInput()?.nativeElement) {
       this.fileInput().nativeElement.value = "";
       this.selectedFileNames.set([]);
+      this.errorMessage.set(null);
     }
   }
 
@@ -77,19 +82,16 @@ export class FileInputComponent implements ControlValueAccessor {
 
   onDragOver(e: DragEvent): void {
     e.preventDefault();
-    e.stopPropagation();
     this.isDragging.set(true);
   }
 
   onDragLeave(e: DragEvent): void {
     e.preventDefault();
-    e.stopPropagation();
     this.isDragging.set(false);
   }
 
   onDrop(e: DragEvent): void {
     e.preventDefault();
-    e.stopPropagation();
     this.isDragging.set(false);
 
     const files = e.dataTransfer?.files;
@@ -101,23 +103,36 @@ export class FileInputComponent implements ControlValueAccessor {
     }
   }
 
+  /** Main file handler with 5MB limit */
   private handleFiles(files: FileList | null | undefined): void {
-    if (files && files.length > 0) {
-      const names = Array.from(files).map((f) => f.name);
-      this.selectedFileNames.set(names);
-      this.onChange(this.multiple() ? files : files[0]);
-    } else {
-      this.selectedFileNames.set([]);
-      this.onChange(null);
+    if (!files || files.length === 0) {
+      this.clearFiles();
+      return;
     }
+
+    const fileArray = Array.from(files);
+    const tooLarge = fileArray.find((f) => f.size > this.MAX_SIZE);
+
+    if (tooLarge) {
+      this.errorMessage.set("Maximum file size is 5 MB");
+      this.clearFiles();
+      return;
+    }
+
+    this.errorMessage.set(null);
+    this.selectedFileNames.set(fileArray.map((f) => f.name));
+    this.onChange(this.multiple() ? files : files[0]);
     this.onTouched();
   }
 
   clearFiles(): void {
     this.selectedFileNames.set([]);
+    this.errorMessage.set(null);
+
     if (this.fileInput()?.nativeElement) {
       this.fileInput().nativeElement.value = "";
     }
+
     this.onChange(null);
     this.onTouched();
   }

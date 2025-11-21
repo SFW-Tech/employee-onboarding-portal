@@ -2,13 +2,11 @@
   "name": "employee-profile-form",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
-    "dev": "ng serve",
     "start": "ng serve",
+    "dev": "ng serve",
     "build": "ng build",
-    "preview": "ng serve --configuration=production",
-    "start": "node index.js"
+    "preview": "ng serve --configuration=production"
   },
   "dependencies": {
     "@angular/animations": "^20.3.10",
@@ -25,12 +23,10 @@
     "@angular/router": "^20.3.10",
     "ngx-captcha": "^14.0.0",
     "rxjs": "^7.8.2",
-    "tailwindcss": "latest",
     "zone.js": "^0.15.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
-    "typescript": "~5.8.2",
-    "vite": "^6.2.0"
+    "typescript": "~5.8.2"
   }
 }

@@ -1,4 +1,3 @@
-
 <header class="profile-header" aria-label="Profile Header Section">
   <div class="header-logo">
     <img
@@ -22,7 +21,6 @@
   </div>
 </header>
 
-
 <div class="container">
   <form
     [formGroup]="employeeForm"
@@ -30,7 +28,7 @@
     novalidate
     aria-label="Employee Onboarding Form"
   >
- 
+
     <mat-card class="mat-section" formGroupName="personal_information">
       <mat-card-header>
         <mat-card-title>
@@ -92,7 +90,7 @@
       </mat-card-content>
     </mat-card>
 
-   
+
     <mat-card class="mat-section" formGroupName="contact_information">
       <mat-card-header>
         <mat-card-title>Contact Information</mat-card-title>
@@ -163,7 +161,7 @@
       </mat-card-content>
     </mat-card>
 
-    
+
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>
         <mat-card-title>Identity & Verification</mat-card-title>
@@ -175,28 +173,24 @@
             <app-file-input
               formControlName="employee_photo"
               label="Employee Photo"
-              fileLabel="EmployeePhoto"
               accept="image/*"
             ></app-file-input>
 
             <app-file-input
               formControlName="id_proof"
               label="Aadhaar Card"
-              fileLabel="IDProof"
               accept="image/*,.pdf"
             ></app-file-input>
 
             <app-file-input
               formControlName="pass_book"
               label="Pass Book"
-              fileLabel="PassBook"
               accept=".pdf,image/*"
             ></app-file-input>
 
             <app-file-input
               formControlName="pan_card"
               label="PAN Card"
-              fileLabel="PANCard"
               accept="image/*,.pdf"
             ></app-file-input>
           </div>
@@ -224,7 +218,7 @@
       </mat-card-content>
     </mat-card>
 
-    
+
     <mat-card class="mat-section" formGroupName="education_and_career">
       <mat-card-header>
         <mat-card-title>Education & Career</mat-card-title>
@@ -235,28 +229,24 @@
           <app-file-input
             formControlName="educational_certificates"
             label="Graduation / Provisional Certificate"
-            fileLabel="EducationalCertificates"
             accept=".pdf,image/*"
           ></app-file-input>
 
           <app-file-input
             formControlName="experience_certificates"
             label="Experience Certificates"
-            fileLabel="ExperienceCertificates"
             accept=".pdf,image/*"
           ></app-file-input>
 
           <app-file-input
             formControlName="resume_cv"
             label="Updated Resume / CV"
-            fileLabel="ResumeCV"
             accept=".pdf"
           ></app-file-input>
         </div>
       </mat-card-content>
     </mat-card>
 
-    
     <mat-card class="mat-section" formGroupName="other">
       <mat-card-header>
         <mat-card-title>Additional Information</mat-card-title>
@@ -296,35 +286,41 @@
       </mat-card-content>
     </mat-card>
 
- 
+
     <div class="actions">
       <div class="captcha-container">
         <ngx-recaptcha2
-          [siteKey]="'6LdGawssAAAAAJdfBSyQc9EShLEp3N-uGbCxY04d'"
+          [siteKey]="captchaKey"
           (success)="onCaptchaResolved($event)"
           (reset)="onCaptchaReset()"
         ></ngx-recaptcha2>
       </div>
 
       <div class="button-group">
+
+
         <button mat-stroked-button type="button" (click)="onReset()">
           Reset
         </button>
+
 
         <button
           mat-raised-button
           color="primary"
           type="submit"
           class="submit-btn"
+          [disabled]="!submitEnabled"
         >
           Submit
         </button>
+
 
         <button
           mat-flat-button
           color="primary"
           type="button"
           (click)="generatePreviewFromForm()"
+          [disabled]="!captchaVerified"
         >
           Preview ID
         </button>
@@ -334,7 +330,10 @@
 </div>
 
 
-<div class="id-preview-container" *ngIf="frontPreviewUrl() || backPreviewUrl()">
+<div
+  class="id-preview-container"
+  *ngIf="previewVisible && (frontPreviewUrl() || backPreviewUrl())"
+>
   <div class="preview-box" *ngIf="frontPreviewUrl()">
     <div class="preview-title">Front Preview</div>
     <div class="preview-card">

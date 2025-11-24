@@ -24,6 +24,8 @@
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
 
+            "envFile": ".env.development",
+
             "assets": [
               {
                 "glob": "**/*",
@@ -36,18 +38,24 @@
                 "output": "."
               }
             ],
-            "styles": ["src/custom-theme.scss"]
+            "styles": [
+              "src/custom-theme.scss"
+            ]
           },
+
           "configurations": {
             "production": {
+              "envFile": ".env.production",
               "outputHashing": "all"
             },
             "development": {
+              "envFile": ".env.development",
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
             }
           },
+
           "defaultConfiguration": "development"
         },
 

@@ -1,13 +1,3 @@
-// ============================================================
-// src/app/services/id-card.service.ts
-// Updated:
-//  - DOB → DD-MM-YYYY
-//  - Removed Relation
-//  - Removed Employee Address
-//  - Added Office Address in 5 clean lines
-//  - Added Office Phone
-//  - Added 50px spacing between Front & Back in combined PNG
-// ============================================================
 
 import { Injectable } from "@angular/core";
 
@@ -60,9 +50,7 @@ export class IdCardService {
     return `${day}-${mon}-${year}`;
   }
 
-  // ============================================================
-  // FRONT
-  // ============================================================
+ 
   async generateFront(params: {
     fullName: string;
     designation?: string;
@@ -90,7 +78,7 @@ export class IdCardService {
     ctx.drawImage(wave, 0, 0, this.W, 220);
     ctx.restore();
 
-    // LOGO
+   
     try {
       const logo = await this.loadImage(params.logoSrc);
       const lw = 140;
@@ -98,7 +86,7 @@ export class IdCardService {
       ctx.drawImage(logo, this.W - lw - 30, 90, lw, lh);
     } catch {}
 
-    // PHOTO
+    
     const size = 260;
     const px = (this.W - size) / 2;
     const py = 160;
@@ -130,7 +118,7 @@ export class IdCardService {
 
     ctx.restore();
 
-    // NAME
+ 
     ctx.fillStyle = "#0f172a";
     ctx.font = "bold 40px Inter";
     ctx.textAlign = "center";
@@ -160,11 +148,7 @@ export class IdCardService {
     return this.canvasToBlob(canvas);
   }
 
-  // ============================================================
-  // BACK
-  // ============================================================
-  // BACK FIXED ALIGNMENT
-  // ============================================================
+
   async generateBack(params: {
     emergencyName?: string;
     emergencyNumber?: string;
@@ -190,7 +174,7 @@ export class IdCardService {
     ctx.drawImage(wave, 0, 0, this.W, 220);
     ctx.restore();
 
-    // LOGO
+   
     try {
       const logo = await this.loadImage(params.logoSrc);
       const lw = 140;
@@ -207,8 +191,8 @@ export class IdCardService {
 
     let y = 310;
 
-    const x1 = 60; // LABEL COLUMN
-    const x2 = 280; // VALUE COLUMN (FIXED NICE ALIGNMENT)
+    const x1 = 60; 
+    const x2 = 280; 
 
     const rw = (label: string, value?: string) => {
       ctx.fillText(label, x1, y);
@@ -220,20 +204,19 @@ export class IdCardService {
     rw("Contact Number", params.emergencyNumber);
     rw("Blood Group", params.bloodGroup);
 
-    // spacing before office section
+    
     y += 20;
 
-    // OFFICE PHONE
+  
     ctx.fillText("Office Phone", x1, y);
     ctx.fillText("+91 7397720330", x2, y);
     y += 50;
 
-    // OFFICE ADDRESS TITLE
     ctx.font = "20px Inter";
     ctx.fillText("Office Address", x1, y);
     y += 36;
 
-    // OFFICE ADDRESS LINES
+    
     const officeLines = [
       "7/2A, Shreesha Building,",
       "First Floor, Central Studio Road,",
@@ -249,16 +232,13 @@ export class IdCardService {
 
     y += 40;
 
-    // dates
+   
     ctx.fillText("Validation On: " + (params.joiningDate || "—"), x1, y);
     ctx.fillText("Valid Till: " + (params.expireDate || "—"), x1 + 270, y);
 
     return this.canvasToBlob(canvas);
   }
 
-  // ============================================================
-  // COMBINED (FRONT | GAP | BACK)
-  // ============================================================
   async generateCombined(params: { front: any; back: any }): Promise<Blob> {
     const GAP = 50;
 

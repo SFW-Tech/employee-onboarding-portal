@@ -593,7 +593,7 @@ mat-card:hover {
     font-size: 0.95rem;
   }
 }
-/* 🏢 Header Logo — Fixed Responsive for Chrome, Edge, Safari */
+
 .header-logo {
   position: absolute;
   top: clamp(10px, 3vw, 30px);
@@ -606,7 +606,7 @@ mat-card:hover {
   transform: translateZ(0); 
 }
 
-/* 🌈 Logo Image */
+
 .header-logo img {
   width: min(20vw, 140px);  
   min-width: 80px;        
@@ -746,9 +746,7 @@ mat-error {
     font-size: 16px !important;
   }
 }
-/* ============================================
-   ID CARD PREVIEW CONTAINER
-============================================ */
+
 .id-preview-container {
   display: flex;
   justify-content: center;
@@ -758,9 +756,7 @@ mat-error {
   flex-wrap: wrap;
 }
 
-/* ============================================
-   PREVIEW BOX
-============================================ */
+
 .preview-box {
   width: 320px;
   display: flex;
@@ -775,9 +771,6 @@ mat-error {
   text-align: center;
 }
 
-/* ============================================
-   PREVIEW CARD
-============================================ */
 .preview-card {
   width: 300px;
   height: 450px;
@@ -797,9 +790,7 @@ mat-error {
   object-fit: cover;
 }
 
-/* ============================================
-   LOGO OVERLAY WATERMARK
-============================================ */
+
 .id-logo-overlay {
   position: absolute;
   top: 50px;
@@ -811,9 +802,7 @@ mat-error {
   width: 60px;
   height: auto;
 }
-/* ============================================
-   REMOVE PREVIEW BUTTON
-============================================ */
+
 .remove-preview-btn {
   margin-top: 10px;
   background: #ef4444;
@@ -829,7 +818,5 @@ mat-error {
   background: #dc2626;
 }
 
-/* ============================================
-   ID CARD PREVIEW (SPACE BETWEEN IMAGES)
-============================================ */
+
 

@@ -1,6 +1,4 @@
-<!-- ============================================================
-   HEADER SECTION (Modern Welcome Banner)
-============================================================ -->
+
 <header class="profile-header" aria-label="Profile Header Section">
   <div class="header-logo">
     <img
@@ -24,9 +22,7 @@
   </div>
 </header>
 
-<!-- ============================================================
-     MAIN FORM CONTAINER
-============================================================ -->
+
 <div class="container">
   <form
     [formGroup]="employeeForm"
@@ -34,9 +30,7 @@
     novalidate
     aria-label="Employee Onboarding Form"
   >
-    <!-- ============================================================
-         PERSONAL INFORMATION
-    ============================================================ -->
+ 
     <mat-card class="mat-section" formGroupName="personal_information">
       <mat-card-header>
         <mat-card-title>
@@ -98,9 +92,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ============================================================
-         CONTACT INFORMATION
-    ============================================================ -->
+   
     <mat-card class="mat-section" formGroupName="contact_information">
       <mat-card-header>
         <mat-card-title>Contact Information</mat-card-title>
@@ -171,9 +163,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ============================================================
-         IDENTITY DOCUMENTS
-    ============================================================ -->
+    
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>
         <mat-card-title>Identity & Verification</mat-card-title>
@@ -234,9 +224,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ============================================================
-         EDUCATION & CAREER
-    ============================================================ -->
+    
     <mat-card class="mat-section" formGroupName="education_and_career">
       <mat-card-header>
         <mat-card-title>Education & Career</mat-card-title>
@@ -268,9 +256,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ============================================================
-         ADDITIONAL INFORMATION
-    ============================================================ -->
+    
     <mat-card class="mat-section" formGroupName="other">
       <mat-card-header>
         <mat-card-title>Additional Information</mat-card-title>
@@ -310,9 +296,7 @@
       </mat-card-content>
     </mat-card>
 
-    <!-- ============================================================
-         CAPTCHA + BUTTONS
-    ============================================================ -->
+ 
     <div class="actions">
       <div class="captcha-container">
         <ngx-recaptcha2
@@ -349,9 +333,7 @@
   </form>
 </div>
 
-<!-- ============================================================
-     ID CARD PREVIEW (FRONT + BACK)
-============================================================ -->
+
 <div class="id-preview-container" *ngIf="frontPreviewUrl() || backPreviewUrl()">
   <div class="preview-box" *ngIf="frontPreviewUrl()">
     <div class="preview-title">Front Preview</div>

@@ -1,6 +1,5 @@
 <div class="file-input-wrapper">
 
-  <!-- Accessible Label -->
   <label
     class="file-label"
     [attr.for]="inputId"
@@ -10,7 +9,6 @@
     {{ label() }}
   </label>
 
-  <!-- Dropzone -->
   <div
     class="file-dropzone"
     [class.dragging]="isDragging()"
@@ -24,7 +22,7 @@
     (drop)="onDrop($event)"
   >
 
-    <!-- No file selected -->
+    
     <ng-container *ngIf="!selectedFileNames().length; else selected">
       <mat-icon class="file-icon" aria-hidden="true">upload_file</mat-icon>
 
@@ -34,11 +32,10 @@
 
       <p class="hint-text">{{ acceptLabel() }}</p>
 
-      <!-- ⭐ ADDING 5 MB Limit -->
       <p class="max-size-text">Max size: 5 MB</p>
     </ng-container>
 
-    <!-- Files selected -->
+
     <ng-template #selected>
       <div class="file-list">
         <p class="upload-text">Selected file(s):</p>
@@ -47,7 +44,7 @@
         </ul>
       </div>
 
-      <!-- Clear button -->
+      
       <button
         mat-icon-button
         type="button"
@@ -60,7 +57,7 @@
       </button>
     </ng-template>
 
-    <!-- Native File Input -->
+  
     <input
       #fileInput
       [id]="inputId"
@@ -75,7 +72,7 @@
 
   </div>
 
-  <!-- 5MB Error message -->
+
   <div class="error-msg" *ngIf="errorMessage()">
     {{ errorMessage() }}
   </div>

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { firstValueFrom } from "rxjs";
+import { environment } from "../environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -8,8 +9,7 @@ import { firstValueFrom } from "rxjs";
 export class BlobUploadService {
   constructor(private http: HttpClient) {}
 
-  private readonly BASE_SAS_URL =
-    "https://sfwalpha.blob.core.windows.net/sfwalphafiles/dummy.pdf?sv=2024-11-04&ss=bfqt&srt=sco&sp=rwdlacupiytfx&se=2025-12-31T01:07:53Z&st=2025-11-17T16:52:53Z&spr=https&sig=lFLoYjrz8UHuj1DoNStHQmij4EBmIiD2%2FSDPHMP9b8o%3D";
+  private readonly BASE_SAS_URL = environment.BASE_SAS_URL;
 
   private buildSasUrl(filename: string): string {
     const [base, query] = this.BASE_SAS_URL.split("?");
@@ -20,7 +20,6 @@ export class BlobUploadService {
   async uploadAndGetUrl(file: File, filename: string): Promise<string> {
     const sasUrl = this.buildSasUrl(filename);
 
-   
     await firstValueFrom(
       this.http.put(sasUrl, file, {
         headers: { "x-ms-blob-type": "BlockBlob" },
@@ -28,7 +27,6 @@ export class BlobUploadService {
       })
     );
 
-   
     return sasUrl;
   }
 }

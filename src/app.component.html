@@ -28,22 +28,10 @@
     novalidate
     aria-label="Employee Onboarding Form"
   >
-
+    
     <mat-card class="mat-section" formGroupName="personal_information">
       <mat-card-header>
-        <mat-card-title>
-          <span class="icon-wrap">
-            <svg width="24" height="24" stroke="currentColor" fill="none">
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-              />
-            </svg>
-          </span>
-          Personal Information
-        </mat-card-title>
+        <mat-card-title>Personal Information</mat-card-title>
       </mat-card-header>
 
       <mat-card-content>
@@ -80,17 +68,14 @@
               [matDatepicker]="dobPicker"
               formControlName="date_of_birth"
             />
-            <mat-datepicker-toggle
-              matSuffix
-              [for]="dobPicker"
-            ></mat-datepicker-toggle>
+            <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
             <mat-datepicker #dobPicker></mat-datepicker>
           </mat-form-field>
         </div>
       </mat-card-content>
     </mat-card>
 
-
+  
     <mat-card class="mat-section" formGroupName="contact_information">
       <mat-card-header>
         <mat-card-title>Contact Information</mat-card-title>
@@ -161,7 +146,6 @@
       </mat-card-content>
     </mat-card>
 
-
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>
         <mat-card-title>Identity & Verification</mat-card-title>
@@ -173,24 +157,28 @@
             <app-file-input
               formControlName="employee_photo"
               label="Employee Photo"
+              fileLabel="EmployeePhoto"
               accept="image/*"
             ></app-file-input>
 
             <app-file-input
               formControlName="id_proof"
               label="Aadhaar Card"
+              fileLabel="IDProof"
               accept="image/*,.pdf"
             ></app-file-input>
 
             <app-file-input
               formControlName="pass_book"
               label="Pass Book"
+              fileLabel="PassBook"
               accept=".pdf,image/*"
             ></app-file-input>
 
             <app-file-input
               formControlName="pan_card"
               label="PAN Card"
+              fileLabel="PANCard"
               accept="image/*,.pdf"
             ></app-file-input>
           </div>
@@ -218,7 +206,6 @@
       </mat-card-content>
     </mat-card>
 
-
     <mat-card class="mat-section" formGroupName="education_and_career">
       <mat-card-header>
         <mat-card-title>Education & Career</mat-card-title>
@@ -229,18 +216,21 @@
           <app-file-input
             formControlName="educational_certificates"
             label="Graduation / Provisional Certificate"
+            fileLabel="EducationalCertificates"
             accept=".pdf,image/*"
           ></app-file-input>
 
           <app-file-input
             formControlName="experience_certificates"
             label="Experience Certificates"
+            fileLabel="ExperienceCertificates"
             accept=".pdf,image/*"
           ></app-file-input>
 
           <app-file-input
             formControlName="resume_cv"
             label="Updated Resume / CV"
+            fileLabel="ResumeCV"
             accept=".pdf"
           ></app-file-input>
         </div>
@@ -261,11 +251,7 @@
 
           <mat-form-field appearance="outline">
             <mat-label>Emergency Contact Number</mat-label>
-            <input
-              matInput
-              type="tel"
-              formControlName="emergency_contact_number"
-            />
+            <input matInput type="tel" formControlName="emergency_contact_number" />
           </mat-form-field>
 
           <mat-form-field appearance="outline">
@@ -297,12 +283,7 @@
       </div>
 
       <div class="button-group">
-
-
-        <button mat-stroked-button type="button" (click)="onReset()">
-          Reset
-        </button>
-
+        <button mat-stroked-button type="button" (click)="onReset()">Reset</button>
 
         <button
           mat-raised-button
@@ -313,7 +294,6 @@
         >
           Submit
         </button>
-
 
         <button
           mat-flat-button
@@ -328,7 +308,6 @@
     </div>
   </form>
 </div>
-
 
 <div
   class="id-preview-container"

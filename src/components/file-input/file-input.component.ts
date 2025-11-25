@@ -36,10 +36,10 @@ export class FileInputComponent implements ControlValueAccessor {
   multiple = input<boolean>(false);
   accept = input<string>("*/*");
 
-  /** 5 MB limit (in bytes) */
+
   readonly MAX_SIZE = 5 * 1024 * 1024;
 
-  /** Unique ID */
+ 
   inputId = "file_" + Math.random().toString(36).substring(2, 9);
 
   selectedFileNames = signal<string[]>([]);

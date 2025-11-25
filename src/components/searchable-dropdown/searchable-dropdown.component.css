@@ -118,7 +118,7 @@
   padding: 0.5rem 0.75rem;
   color: #6b7280;
 }
-/* Ensure dropdown background stays pure white, even in Angular Material theme */
+
 :host,
 .dropdown-menu,
 .dropdown-button,
@@ -133,7 +133,7 @@
   --mdc-theme-surface-tint-color: transparent !important;
 }
 
-/* Also make sure the menu text stays readable */
+
 .dropdown-option,
 .dropdown-search-input,
 .dropdown-no-option {

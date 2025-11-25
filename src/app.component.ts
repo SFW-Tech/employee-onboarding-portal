@@ -1,11 +1,3 @@
-// ============================================================
-// src/app/app.component.ts
-//  - Standalone onboarding component
-//  - Shows: Front Preview + Back Preview
-//  - Uploads: ONE Combined PNG [ FRONT | BACK ]
-//  - ID card service: generateFront(), generateBack(), generateCombined()
-//  - Azure Blob upload via BlobUploadService
-// ============================================================
 
 import {
   Component,
@@ -42,6 +34,8 @@ import { LocationService } from "./services/location.service";
 import { FileInputComponent } from "./components/file-input/file-input.component";
 import { IdCardService } from "./services/id-card.service";
 import { BlobUploadService } from "./services/blob-upload.service";
+import { environment } from "./environments/environment";
+
 
 type Option = { id: number | string; name: string };
 
@@ -79,15 +73,17 @@ export class AppComponent {
   private idCard = inject(IdCardService);
   private blobUpload = inject(BlobUploadService);
 
+  captchaKey = environment.recaptchaSiteKey;
+
   employeeForm: FormGroup;
   captchaVerified = false;
   isSubmitting = false;
 
-  // PREVIEW SIGNALS (Front & Back)
+  previewVisible = false;
+  submitEnabled = false;
+
   frontPreviewUrl = signal<string | null>(null);
   backPreviewUrl = signal<string | null>(null);
-
-  // Combined image preview + blob for upload
   combinedPreviewUrl = signal<string | null>(null);
   private lastCombinedBlob: Blob | null = null;
 
@@ -112,8 +108,7 @@ export class AppComponent {
     { id: "O-", name: "O-" },
   ];
 
-  private readonly API_URL =
-    "https://azure-proxy-production.up.railway.app/api/proxy/dynamics?endPoint=cr276_sfemployeemasters";
+  private readonly API_URL = environment.API_URL;
 
   constructor() {
     this.employeeForm = this.fb.group({
@@ -190,7 +185,6 @@ export class AppComponent {
       ?.valueChanges.pipe(takeUntilDestroyed())
       .subscribe((value) => {
         const id = Number(value);
-
         this.states.set([]);
         this.cities.set([]);
 
@@ -239,6 +233,10 @@ export class AppComponent {
   onCaptchaReset(): void {
     this.employeeForm.get("recaptcha")?.reset();
     this.captchaVerified = false;
+
+    // FIX
+    this.previewVisible = false;
+    this.submitEnabled = false;
   }
 
   private addIfExists(target: any, key: string, value: any) {
@@ -313,10 +311,9 @@ export class AppComponent {
       .replace(/^-+|-+$/g, "");
   }
 
-  // ============================================================
-  // GENERATE PREVIEW (front + back + combined)
-  // ============================================================
+  
   async generatePreviewFromForm(): Promise<void> {
+ 
     const form = this.employeeForm.getRawValue();
 
     const photoFile: File = form.identity_documents.employee_photo;
@@ -375,21 +372,14 @@ export class AppComponent {
 
     this.lastCombinedBlob = combinedBlob;
     this.combinedPreviewUrl.set(await this.blobToDataUrl(combinedBlob));
+
+
+    this.previewVisible = true;
+    this.submitEnabled = true;
   }
 
-  // ============================================================
-  // UPLOAD FILES (combined PNG is uploaded)
-  // ============================================================
-  private async uploadAllFiles(form: any): Promise<{
-    idFront: string | null;
-    employeePhoto: string | null;
-    aadhar: string | null;
-    pan: string | null;
-    eduCert: string | null;
-    expCert: string | null;
-    resume: string | null;
-    bank: string | null;
-  }> {
+
+  private async uploadAllFiles(form: any) {
     const fullName =
       `${form.personal_information.first_name} ${form.personal_information.last_name}`.trim() ||
       "employee";
@@ -407,7 +397,6 @@ export class AppComponent {
       bank: null as string | null,
     };
 
-    // Upload combined PNG
     if (this.lastCombinedBlob) {
       const idFileName = `${slug}-idcard-front-back-${ts}.png`;
       const idFile = new File([this.lastCombinedBlob], idFileName, {
@@ -482,14 +471,12 @@ export class AppComponent {
     return result;
   }
 
-  // ============================================================
-  // SUBMIT FORM
-  // ============================================================
+ 
   async onSubmit(): Promise<void> {
     this.employeeForm.markAllAsTouched();
 
-    if (this.employeeForm.invalid || !this.captchaVerified) {
-      this.snack.open("❌ Please complete all required fields!", "Close", {
+    if (this.employeeForm.invalid || !this.submitEnabled) {
+      this.snack.open("❌ Please complete required steps!", "Close", {
         duration: 3000,
         panelClass: ["toast-error"],
       });
@@ -544,6 +531,7 @@ export class AppComponent {
         "cr276_address_line1",
         form.contact_information.address_line1
       );
+
       data["cr276_address_line2"] =
         form.contact_information.address_line2?.trim() || null;
 
@@ -590,10 +578,8 @@ export class AppComponent {
       );
       this.addIfExists(data, "cr276_blood_group", form.other.blood_group);
 
-      // COMBINED ID CARD
       data["cr276_employee_temp_id_card_link"] = uploadedUrls.idFront ?? null;
 
-      // Other document URLs
       data["cr276_employee_photo_link"] = uploadedUrls.employeePhoto ?? null;
       data["cr276_employee_aadhar_link"] = uploadedUrls.aadhar ?? null;
       data["cr276_employee_pan_link"] = uploadedUrls.pan ?? null;
@@ -604,7 +590,6 @@ export class AppComponent {
       data["cr276_employee_updated_cv_link"] = uploadedUrls.resume ?? null;
       data["cr276_employee_bank_link"] = uploadedUrls.bank ?? null;
 
-      // Unused CRM fields set to null
       data["cr276_employee_photoid"] = null;
       data["cr276_employee_photo_timestamp"] = null;
       data["cr276_employee_photo"] = null;
@@ -657,6 +642,9 @@ export class AppComponent {
     this.backPreviewUrl.set(null);
     this.combinedPreviewUrl.set(null);
     this.lastCombinedBlob = null;
+
+    this.previewVisible = false;
+    this.submitEnabled = false;
 
     this.snack.open("Form reset successfully!", "OK", {
       duration: 2000,

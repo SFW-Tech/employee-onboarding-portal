@@ -6,7 +6,7 @@
   position: relative;
 }
 
-/* Section Label */
+
 .file-label {
   font-weight: 600;
   color: #1e293b;
@@ -15,7 +15,7 @@
   letter-spacing: 0.2px;
 }
 
-/* Dropzone */
+
 .file-dropzone {
   display: flex;
   flex-direction: column;
@@ -44,21 +44,21 @@
   transform: translateY(-2px);
 }
 
-/* Dragging State */
+
 .file-dropzone.dragging {
   border-color: #2563eb;
   background: #e5efff;
   box-shadow: 0 0 0 3px #2563eb55;
 }
 
-/* Icon */
+
 .file-icon {
   font-size: 52px;
   margin-bottom: 10px;
   color: #2563eb;
 }
 
-/* Upload Text */
+
 .upload-text {
   font-size: 15px;
   color: #334155;
@@ -75,7 +75,7 @@
   color: #1d4ed8;
 }
 
-/* Accepted Type Hint */
+
 .hint-text,
 .max-size-text {
   font-size: 12.5px;
@@ -83,7 +83,7 @@
   margin-top: 4px;
 }
 
-/* File List */
+
 .file-list {
   width: 100%;
   text-align: left;
@@ -97,7 +97,7 @@
   color: #334155;
 }
 
-/* Clear Button */
+
 .clear-btn {
   position: absolute;
   top: 8px;
@@ -124,18 +124,16 @@
   transform: scale(1.15);
 }
 
-/* Hidden file input */
 .hidden {
   display: none;
 }
 
-/* Keyboard focus state */
 .file-dropzone:focus {
   outline: 3px solid #2563eb;
   outline-offset: 3px;
 }
 
-/* Error Message */
+
 .error-msg {
   margin-top: 8px;
   color: #dc2626;
@@ -143,7 +141,6 @@
   font-weight: 500;
 }
 
-/* Mobile-Responsive */
 @media (max-width: 768px) {
   .file-dropzone {
     padding: 24px 18px;

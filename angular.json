@@ -23,7 +23,6 @@
             "browser": "src/main.ts",
             "index": "src/index.html",
             "tsConfig": "tsconfig.json",
-
             "assets": [
               {
                 "glob": "**/*",
@@ -50,7 +49,6 @@
           },
           "defaultConfiguration": "development"
         },
-
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {

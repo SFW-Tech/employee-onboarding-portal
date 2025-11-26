@@ -11,7 +11,7 @@ COPY package*.json ./
 # Install dependencies
 RUN npm ci
 
-# Copy source code
+# Copy the rest of the source code
 COPY . .
 
 # Build the app
@@ -20,8 +20,8 @@ RUN npm run build
 # Stage 2: Serve the app with nginx
 FROM nginx:alpine
 
-# Copy built Angular output (browser directory)
-COPY --from=build /app/dist/browser /usr/share/nginx/html
+# Copy built Angular output (correct Angular 17 output folder)
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80

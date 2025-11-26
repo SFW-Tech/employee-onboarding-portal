@@ -122,14 +122,36 @@ export class AppComponent {
 
       contact_information: this.fb.group({
         email: ["", [Validators.required, Validators.email]],
-        phone_number: ["", Validators.required],
-        alternate_phone: [""],
+
+        phone_number: [
+          "",
+          [
+            Validators.required,
+            Validators.pattern(/^[0-9]{10}$/), // EXACT 10 digits
+          ],
+        ],
+
+        alternate_phone: [
+          "",
+          [
+            Validators.pattern(/^[0-9]{10}$/), // OPTIONAL but must be 10 digits if entered
+          ],
+        ],
+
         address_line1: ["", Validators.required],
         address_line2: [""],
+
         country: [null, Validators.required],
         state: [{ value: null, disabled: true }, Validators.required],
         city: [{ value: null, disabled: true }, Validators.required],
-        postal_code: [""],
+
+        postal_code: [
+          "",
+          [
+            Validators.required,
+            Validators.pattern(/^[0-9]{6}$/), // EXACT 6 digits
+          ],
+        ],
       }),
 
       identity_documents: this.fb.group({

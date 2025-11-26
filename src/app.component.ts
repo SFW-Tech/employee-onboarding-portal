@@ -1,4 +1,3 @@
-
 import {
   Component,
   ChangeDetectionStrategy,
@@ -34,8 +33,8 @@ import { LocationService } from "./services/location.service";
 import { FileInputComponent } from "./components/file-input/file-input.component";
 import { IdCardService } from "./services/id-card.service";
 import { BlobUploadService } from "./services/blob-upload.service";
-import { environment } from "./environments/environment";
 
+import { environment } from "./environments/environment";
 
 type Option = { id: number | string; name: string };
 
@@ -74,6 +73,7 @@ export class AppComponent {
   private blobUpload = inject(BlobUploadService);
 
   captchaKey = environment.recaptchaSiteKey;
+  private readonly API_URL = environment.API_URL;
 
   employeeForm: FormGroup;
   captchaVerified = false;
@@ -107,8 +107,6 @@ export class AppComponent {
     { id: "O+", name: "O+" },
     { id: "O-", name: "O-" },
   ];
-
-  private readonly API_URL = environment.API_URL;
 
   constructor() {
     this.employeeForm = this.fb.group({
@@ -234,7 +232,6 @@ export class AppComponent {
     this.employeeForm.get("recaptcha")?.reset();
     this.captchaVerified = false;
 
-    // FIX
     this.previewVisible = false;
     this.submitEnabled = false;
   }
@@ -311,9 +308,7 @@ export class AppComponent {
       .replace(/^-+|-+$/g, "");
   }
 
-  
   async generatePreviewFromForm(): Promise<void> {
- 
     const form = this.employeeForm.getRawValue();
 
     const photoFile: File = form.identity_documents.employee_photo;
@@ -373,11 +368,9 @@ export class AppComponent {
     this.lastCombinedBlob = combinedBlob;
     this.combinedPreviewUrl.set(await this.blobToDataUrl(combinedBlob));
 
-
     this.previewVisible = true;
     this.submitEnabled = true;
   }
-
 
   private async uploadAllFiles(form: any) {
     const fullName =
@@ -408,7 +401,8 @@ export class AppComponent {
       );
     }
 
-    const employeePhoto: File | null = form.identity_documents.employee_photo;
+    const employeePhoto: File | null =
+      form.identity_documents.employee_photo;
     if (employeePhoto instanceof File) {
       const ext = employeePhoto.name.split(".").pop() || "jpg";
       const fileName = `${slug}-employee_photo-${ts}.${ext}`;
@@ -432,7 +426,10 @@ export class AppComponent {
     if (panFile instanceof File) {
       const ext = panFile.name.split(".").pop() || "jpg";
       const fileName = `${slug}-pan-${ts}.${ext}`;
-      result.pan = await this.blobUpload.uploadAndGetUrl(panFile, fileName);
+      result.pan = await this.blobUpload.uploadAndGetUrl(
+        panFile,
+        fileName
+      );
     }
 
     const eduFile: File | null =
@@ -440,7 +437,10 @@ export class AppComponent {
     if (eduFile instanceof File) {
       const ext = eduFile.name.split(".").pop() || "png";
       const fileName = `${slug}-edu_cert-${ts}.${ext}`;
-      result.eduCert = await this.blobUpload.uploadAndGetUrl(eduFile, fileName);
+      result.eduCert = await this.blobUpload.uploadAndGetUrl(
+        eduFile,
+        fileName
+      );
     }
 
     const expFile: File | null =
@@ -448,10 +448,14 @@ export class AppComponent {
     if (expFile instanceof File) {
       const ext = expFile.name.split(".").pop() || "png";
       const fileName = `${slug}-exp_cert-${ts}.${ext}`;
-      result.expCert = await this.blobUpload.uploadAndGetUrl(expFile, fileName);
+      result.expCert = await this.blobUpload.uploadAndGetUrl(
+        expFile,
+        fileName
+      );
     }
 
-    const resumeFile: File | null = form.education_and_career.resume_cv;
+    const resumeFile: File | null =
+      form.education_and_career.resume_cv;
     if (resumeFile instanceof File) {
       const ext = resumeFile.name.split(".").pop() || "pdf";
       const fileName = `${slug}-resume-${ts}.${ext}`;
@@ -465,13 +469,15 @@ export class AppComponent {
     if (bankFile instanceof File) {
       const ext = bankFile.name.split(".").pop() || "png";
       const fileName = `${slug}-bank_passbook-${ts}.${ext}`;
-      result.bank = await this.blobUpload.uploadAndGetUrl(bankFile, fileName);
+      result.bank = await this.blobUpload.uploadAndGetUrl(
+        bankFile,
+        fileName
+      );
     }
 
     return result;
   }
 
- 
   async onSubmit(): Promise<void> {
     this.employeeForm.markAllAsTouched();
 
@@ -498,9 +504,8 @@ export class AppComponent {
       const genderMap: any = { male: 1, female: 2, other: 3 };
       const genderNumber = genderMap[form.personal_information.gender];
 
-      const { countryName, stateName, cityName } = this.mapLocationValues(
-        form.contact_information
-      );
+      const { countryName, stateName, cityName } =
+        this.mapLocationValues(form.contact_information);
 
       const data: any = {};
 
@@ -578,17 +583,22 @@ export class AppComponent {
       );
       this.addIfExists(data, "cr276_blood_group", form.other.blood_group);
 
-      data["cr276_employee_temp_id_card_link"] = uploadedUrls.idFront ?? null;
+      data["cr276_employee_temp_id_card_link"] =
+        uploadedUrls.idFront ?? null;
 
-      data["cr276_employee_photo_link"] = uploadedUrls.employeePhoto ?? null;
-      data["cr276_employee_aadhar_link"] = uploadedUrls.aadhar ?? null;
+      data["cr276_employee_photo_link"] =
+        uploadedUrls.employeePhoto ?? null;
+      data["cr276_employee_aadhar_link"] =
+        uploadedUrls.aadhar ?? null;
       data["cr276_employee_pan_link"] = uploadedUrls.pan ?? null;
       data["cr276_employee_edu_certificate_link"] =
         uploadedUrls.eduCert ?? null;
       data["cr276_employee_last_exp_certificate_link"] =
         uploadedUrls.expCert ?? null;
-      data["cr276_employee_updated_cv_link"] = uploadedUrls.resume ?? null;
-      data["cr276_employee_bank_link"] = uploadedUrls.bank ?? null;
+      data["cr276_employee_updated_cv_link"] =
+        uploadedUrls.resume ?? null;
+      data["cr276_employee_bank_link"] =
+        uploadedUrls.bank ?? null;
 
       data["cr276_employee_photoid"] = null;
       data["cr276_employee_photo_timestamp"] = null;

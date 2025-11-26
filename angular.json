@@ -35,7 +35,9 @@
                 "output": "."
               }
             ],
-            "styles": ["src/custom-theme.scss"]
+            "styles": [
+              "src/custom-theme.scss"
+            ]
           },
           "configurations": {
             "production": {

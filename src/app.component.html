@@ -76,75 +76,101 @@
     </mat-card>
 
   
-    <mat-card class="mat-section" formGroupName="contact_information">
-      <mat-card-header>
-        <mat-card-title>Contact Information</mat-card-title>
-      </mat-card-header>
+<mat-card class="mat-section" formGroupName="contact_information">
+  <mat-card-header>
+    <mat-card-title>Contact Information</mat-card-title>
+  </mat-card-header>
 
-      <mat-card-content>
-        <div class="grid grid-2">
-          <mat-form-field appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" />
-          </mat-form-field>
+  <mat-card-content>
+    <div class="grid grid-2">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Phone Number</mat-label>
-            <input matInput formControlName="phone_number" />
-          </mat-form-field>
+      <!-- Email -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Alternate Phone</mat-label>
-            <input matInput formControlName="alternate_phone" />
-          </mat-form-field>
+      <!-- Phone Number -->
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phone_number" />
 
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Address Line 1</mat-label>
-            <input matInput formControlName="address_line1" />
-          </mat-form-field>
+        <mat-error *ngIf="contact_information.get('phone_number')?.hasError('pattern')">
+          Phone number must be exactly 10 digits.
+        </mat-error>
+      </mat-form-field>
 
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Address Line 2</mat-label>
-            <input matInput formControlName="address_line2" />
-          </mat-form-field>
+      <!-- Alternate Phone -->
+      <mat-form-field appearance="outline">
+        <mat-label>Alternate Phone</mat-label>
+        <input matInput formControlName="alternate_phone" />
 
-          <div class="grid grid-3 full-width">
-            <mat-form-field appearance="outline">
-              <mat-label>Country</mat-label>
-              <mat-select formControlName="country">
-                <mat-option [value]="null" disabled>Select Country</mat-option>
-                <mat-option *ngFor="let c of countries()" [value]="c.id">
-                  {{ c.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+        <mat-error *ngIf="contact_information.get('alternate_phone')?.hasError('pattern')">
+          Alternate phone must be exactly 10 digits.
+        </mat-error>
+      </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>State</mat-label>
-              <mat-select formControlName="state">
-                <mat-option *ngFor="let s of states()" [value]="s.id">
-                  {{ s.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+      <!-- Address Line 1 -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Address Line 1</mat-label>
+        <input matInput formControlName="address_line1" />
+      </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>City</mat-label>
-              <mat-select formControlName="city">
-                <mat-option *ngFor="let c of cities()" [value]="c.id">
-                  {{ c.name }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+      <!-- Address Line 2 -->
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Address Line 2</mat-label>
+        <input matInput formControlName="address_line2" />
+      </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Postal Code</mat-label>
-            <input matInput formControlName="postal_code" />
-          </mat-form-field>
-        </div>
-      </mat-card-content>
-    </mat-card>
+      <div class="grid grid-3 full-width">
+
+        <!-- Country -->
+        <mat-form-field appearance="outline">
+          <mat-label>Country</mat-label>
+          <mat-select formControlName="country">
+            <mat-option [value]="null" disabled>Select Country</mat-option>
+            <mat-option *ngFor="let c of countries()" [value]="c.id">
+              {{ c.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- State -->
+        <mat-form-field appearance="outline">
+          <mat-label>State</mat-label>
+          <mat-select formControlName="state">
+            <mat-option *ngFor="let s of states()" [value]="s.id">
+              {{ s.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- City -->
+        <mat-form-field appearance="outline">
+          <mat-label>City</mat-label>
+          <mat-select formControlName="city">
+            <mat-option *ngFor="let c of cities()" [value]="c.id">
+              {{ c.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+      <!-- Postal Code -->
+      <mat-form-field appearance="outline">
+        <mat-label>Postal Code</mat-label>
+        <input matInput formControlName="postal_code" />
+
+        <mat-error *ngIf="contact_information.get('postal_code')?.hasError('pattern')">
+          Postal code must be exactly 6 digits.
+        </mat-error>
+      </mat-form-field>
+
+    </div>
+  </mat-card-content>
+</mat-card>
+
 
     <mat-card class="mat-section" formGroupName="identity_documents">
       <mat-card-header>

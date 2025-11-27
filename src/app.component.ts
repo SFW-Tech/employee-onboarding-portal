@@ -35,6 +35,7 @@ import { IdCardService } from "./services/id-card.service";
 import { BlobUploadService } from "./services/blob-upload.service";
 
 import { environment } from "./environments/environment";
+import { Router } from "@angular/router";
 
 
 
@@ -73,6 +74,7 @@ export class AppComponent {
   private snack = inject(MatSnackBar);
   private idCard = inject(IdCardService);
   private blobUpload = inject(BlobUploadService);
+  private router = inject(Router);
 
   captchaKey = environment.recaptchaSiteKey;
   private readonly API_URL = environment.API_URL;
@@ -357,6 +359,7 @@ export class AppComponent {
 
     const frontParams = {
       fullName,
+      gender: form.personal_information.gender,
       phone: form.contact_information.phone_number,
       bloodGroup: form.other.blood_group,
       dob: form.personal_information.date_of_birth
@@ -425,8 +428,7 @@ export class AppComponent {
       );
     }
 
-    const employeePhoto: File | null =
-      form.identity_documents.employee_photo;
+    const employeePhoto: File | null = form.identity_documents.employee_photo;
     if (employeePhoto instanceof File) {
       const ext = employeePhoto.name.split(".").pop() || "jpg";
       const fileName = `${slug}-employee_photo-${ts}.${ext}`;
@@ -450,10 +452,7 @@ export class AppComponent {
     if (panFile instanceof File) {
       const ext = panFile.name.split(".").pop() || "jpg";
       const fileName = `${slug}-pan-${ts}.${ext}`;
-      result.pan = await this.blobUpload.uploadAndGetUrl(
-        panFile,
-        fileName
-      );
+      result.pan = await this.blobUpload.uploadAndGetUrl(panFile, fileName);
     }
 
     const eduFile: File | null =
@@ -461,10 +460,7 @@ export class AppComponent {
     if (eduFile instanceof File) {
       const ext = eduFile.name.split(".").pop() || "png";
       const fileName = `${slug}-edu_cert-${ts}.${ext}`;
-      result.eduCert = await this.blobUpload.uploadAndGetUrl(
-        eduFile,
-        fileName
-      );
+      result.eduCert = await this.blobUpload.uploadAndGetUrl(eduFile, fileName);
     }
 
     const expFile: File | null =
@@ -472,14 +468,10 @@ export class AppComponent {
     if (expFile instanceof File) {
       const ext = expFile.name.split(".").pop() || "png";
       const fileName = `${slug}-exp_cert-${ts}.${ext}`;
-      result.expCert = await this.blobUpload.uploadAndGetUrl(
-        expFile,
-        fileName
-      );
+      result.expCert = await this.blobUpload.uploadAndGetUrl(expFile, fileName);
     }
 
-    const resumeFile: File | null =
-      form.education_and_career.resume_cv;
+    const resumeFile: File | null = form.education_and_career.resume_cv;
     if (resumeFile instanceof File) {
       const ext = resumeFile.name.split(".").pop() || "pdf";
       const fileName = `${slug}-resume-${ts}.${ext}`;
@@ -493,10 +485,7 @@ export class AppComponent {
     if (bankFile instanceof File) {
       const ext = bankFile.name.split(".").pop() || "png";
       const fileName = `${slug}-bank_passbook-${ts}.${ext}`;
-      result.bank = await this.blobUpload.uploadAndGetUrl(
-        bankFile,
-        fileName
-      );
+      result.bank = await this.blobUpload.uploadAndGetUrl(bankFile, fileName);
     }
 
     return result;
@@ -528,8 +517,9 @@ export class AppComponent {
       const genderMap: any = { male: 1, female: 2, other: 3 };
       const genderNumber = genderMap[form.personal_information.gender];
 
-      const { countryName, stateName, cityName } =
-        this.mapLocationValues(form.contact_information);
+      const { countryName, stateName, cityName } = this.mapLocationValues(
+        form.contact_information
+      );
 
       const data: any = {};
 
@@ -607,22 +597,17 @@ export class AppComponent {
       );
       this.addIfExists(data, "cr276_blood_group", form.other.blood_group);
 
-      data["cr276_employee_temp_id_card_link"] =
-        uploadedUrls.idFront ?? null;
+      data["cr276_employee_temp_id_card_link"] = uploadedUrls.idFront ?? null;
 
-      data["cr276_employee_photo_link"] =
-        uploadedUrls.employeePhoto ?? null;
-      data["cr276_employee_aadhar_link"] =
-        uploadedUrls.aadhar ?? null;
+      data["cr276_employee_photo_link"] = uploadedUrls.employeePhoto ?? null;
+      data["cr276_employee_aadhar_link"] = uploadedUrls.aadhar ?? null;
       data["cr276_employee_pan_link"] = uploadedUrls.pan ?? null;
       data["cr276_employee_edu_certificate_link"] =
         uploadedUrls.eduCert ?? null;
       data["cr276_employee_last_exp_certificate_link"] =
         uploadedUrls.expCert ?? null;
-      data["cr276_employee_updated_cv_link"] =
-        uploadedUrls.resume ?? null;
-      data["cr276_employee_bank_link"] =
-        uploadedUrls.bank ?? null;
+      data["cr276_employee_updated_cv_link"] = uploadedUrls.resume ?? null;
+      data["cr276_employee_bank_link"] = uploadedUrls.bank ?? null;
 
       data["cr276_employee_photoid"] = null;
       data["cr276_employee_photo_timestamp"] = null;
@@ -657,7 +642,9 @@ export class AppComponent {
       this.snack.open("Form submitted successfully!", "OK", {
         duration: 3000,
         panelClass: ["toast-success"],
+        
       });
+      this.router.navigate(["/thank-you"]);
     } catch (err) {
       console.error("API/UPLOAD ERROR:", err);
       this.snack.open("Submission failed. Check console.", "Close", {
@@ -665,11 +652,12 @@ export class AppComponent {
         panelClass: ["toast-error"],
       });
     } finally {
-      this.isSubmitting = false;
+      this.isSubmitting = true;
     }
   }
 
   onReset(): void {
+
     this.employeeForm.reset();
     this.captchaVerified = false;
     this.frontPreviewUrl.set(null);

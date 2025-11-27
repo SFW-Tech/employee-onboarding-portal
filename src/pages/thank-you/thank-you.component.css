@@ -1,0 +1,43 @@
+.thank-you-wrapper {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  padding: 20px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-image: url("../../assets/thankyou.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+/* Top-left logo */
+.thank-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 130px;
+  z-index: 2;
+}
+
+/* Responsive logo */
+@media (max-width: 768px) {
+  .thank-logo {
+    width: 100px;
+    top: 15px;
+    left: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-logo {
+    width: 80px;
+    top: 12px;
+    left: 12px;
+  }
+}

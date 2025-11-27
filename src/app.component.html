@@ -297,42 +297,48 @@
         </div>
       </mat-card-content>
     </mat-card>
+<div class="actions">
+  <div class="captcha-container">
+    <ngx-recaptcha2
+      [siteKey]="captchaKey"
+      (success)="onCaptchaResolved($event)"
+      (reset)="onCaptchaReset()"
+    ></ngx-recaptcha2>
+  </div>
 
+  <!-- ADD THIS NOTE -->
+  <div class="note-box">
+    <p>
+      <strong>Note:</strong> Please verify the captcha, click on 
+      <strong>“Preview ID”</strong> to check your information, and then click 
+      <strong>“Submit”</strong>. After submitting, please wait until you see the 
+      confirmation message.
+    </p>
+  </div>
 
-    <div class="actions">
-      <div class="captcha-container">
-        <ngx-recaptcha2
-          [siteKey]="captchaKey"
-          (success)="onCaptchaResolved($event)"
-          (reset)="onCaptchaReset()"
-        ></ngx-recaptcha2>
-      </div>
+  <div class="button-group">
+    <button mat-stroked-button type="button" (click)="onReset()">Reset</button>
 
-      <div class="button-group">
-        <button mat-stroked-button type="button" (click)="onReset()">Reset</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      class="submit-btn"
+      [hidden]="!submitEnabled"
+    >
+      Submit
+    </button>
 
-        <button
-          mat-raised-button
-          color="primary"
-          type="submit"
-          class="submit-btn"
-          [disabled]="!submitEnabled"
-        >
-          Submit
-        </button>
-
-        <button
-          mat-flat-button
-          color="primary"
-          type="button"
-          (click)="generatePreviewFromForm()"
-          [disabled]="!captchaVerified"
-        >
-          Preview ID
-        </button>
-      </div>
-    </div>
-  </form>
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="generatePreviewFromForm()"
+      [disabled]="!captchaVerified"
+    >
+      Preview ID
+    </button>
+  </div>
 </div>
 
 <div
@@ -353,3 +359,5 @@
     </div>
   </div>
 </div>
+
+

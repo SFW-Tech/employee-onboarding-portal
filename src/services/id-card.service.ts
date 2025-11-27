@@ -1,4 +1,3 @@
-
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -38,22 +37,57 @@ export class IdCardService {
     );
   }
 
-  private formatDob(dobIso?: string): string {
-    if (!dobIso) return "—";
-    const d = new Date(dobIso);
-    if (isNaN(d.getTime())) return "—";
+  // -------------------------------
+  // DATE FORMATTER: DD-MMM-YYYY
+  // -------------------------------
+  private formatDate(d: string | undefined): string {
+    if (!d) return "—";
 
-    const day = String(d.getDate()).padStart(2, "0");
-    const mon = String(d.getMonth() + 1).padStart(2, "0");
-    const year = d.getFullYear();
+    const date = new Date(d);
+    if (isNaN(date.getTime())) return "—";
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const mon = months[date.getMonth()];
+    const year = date.getFullYear();
 
     return `${day}-${mon}-${year}`;
   }
 
- 
+  // -------------------------------
+  // GENDER FORMATTER
+  // -------------------------------
+  private formatGender(g?: string): string {
+    if (!g) return "—";
+
+    const map: any = {
+      male: "Male",
+      female: "Female",
+      other: "Other",
+    };
+
+    return map[g] ?? "—";
+  }
+
+  // -------------------------------------------------------
+  // FRONT SIDE
+  // -------------------------------------------------------
   async generateFront(params: {
     fullName: string;
-    designation?: string;
+    gender?: string;
     phone?: string;
     bloodGroup?: string;
     dob?: string;
@@ -66,7 +100,7 @@ export class IdCardService {
     canvas.height = this.H;
     const ctx = canvas.getContext("2d")!;
 
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, this.W, this.H);
 
     const wave = await this.svgToImage(this.WAVE);
@@ -78,7 +112,6 @@ export class IdCardService {
     ctx.drawImage(wave, 0, 0, this.W, 220);
     ctx.restore();
 
-   
     try {
       const logo = await this.loadImage(params.logoSrc);
       const lw = 140;
@@ -86,73 +119,68 @@ export class IdCardService {
       ctx.drawImage(logo, this.W - lw - 30, 90, lw, lh);
     } catch {}
 
-    
-    const size = 260;
+    const size = 300;
     const px = (this.W - size) / 2;
-    const py = 160;
+    const py = 200;
 
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(px, py, size, size, 20);
     ctx.clip();
-    ctx.fillStyle = "#eef2f7";
+
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(px, py, size, size);
 
     if (params.photoDataUrl) {
       const img = await this.loadImage(params.photoDataUrl);
-      const scale = Math.max(size / img.width, size / img.height);
-      const sw = size / scale;
-      const sh = size / scale;
-      ctx.drawImage(
-        img,
-        (img.width - sw) / 2,
-        (img.height - sh) / 2,
-        sw,
-        sh,
-        px,
-        py,
-        size,
-        size
-      );
+
+      const scale = size / img.width;
+      const w = img.width * scale;
+      const h = img.height * scale;
+
+      const dx = px;
+      const dy = py + (size - h) / 4;
+
+      ctx.drawImage(img, dx, dy, w, h);
     }
 
     ctx.restore();
 
- 
     ctx.fillStyle = "#0f172a";
-    ctx.font = "bold 40px Inter";
+    ctx.font = "bold 42px Inter";
     ctx.textAlign = "center";
-    ctx.fillText(params.fullName.toUpperCase(), this.W / 2, 460);
+    ctx.fillText(params.fullName.toUpperCase(), this.W / 2, 560);
 
-    ctx.fillStyle = "#2563eb";
-    ctx.font = "22px Inter";
-    ctx.fillText(params.designation?.toUpperCase() ?? "", this.W / 2, 495);
-
-    ctx.font = "20px Inter";
-    ctx.fillStyle = "#111827";
     ctx.textAlign = "start";
+    ctx.font = "22px Inter";
+    ctx.fillStyle = "#111827";
 
-    let y = 560;
-    const left = 60;
+    let y = 620;
+    const left = 100;
 
-    const row = (label: string, value?: string) => {
+    const row = (label: string, value: any) => {
       ctx.fillText(label, left, y);
-      ctx.fillText(": " + (value || "—"), left + 150, y);
-      y += 36;
+      ctx.fillText(": " + (value || "—"), left + 160, y);
+      y += 38;
     };
 
-    row("Blood", params.bloodGroup);
+    // ✔ FIXED GENDER
+    row("Gender", this.formatGender(params.gender));
+
     row("Phone", params.phone);
-    row("DOB", this.formatDob(params.dob));
+    row("DOB", this.formatDate(params.dob));
 
     return this.canvasToBlob(canvas);
   }
 
-
+  // -------------------------------------------------------
+  // BACK SIDE
+  // -------------------------------------------------------
   async generateBack(params: {
     emergencyName?: string;
     emergencyNumber?: string;
     bloodGroup?: string;
+    address?: string;
     joiningDate?: string;
     expireDate?: string;
     logoSrc: string;
@@ -162,7 +190,7 @@ export class IdCardService {
     canvas.height = this.H;
     const ctx = canvas.getContext("2d")!;
 
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, this.W, this.H);
 
     const wave = await this.svgToImage(this.WAVE);
@@ -174,7 +202,6 @@ export class IdCardService {
     ctx.drawImage(wave, 0, 0, this.W, 220);
     ctx.restore();
 
-   
     try {
       const logo = await this.loadImage(params.logoSrc);
       const lw = 140;
@@ -183,40 +210,34 @@ export class IdCardService {
     } catch {}
 
     ctx.fillStyle = "#0f172a";
-    ctx.font = "bold 28px Inter";
-    ctx.fillText("EMERGENCY INFO", 40, 240);
+    ctx.font = "bold 30px Inter";
+    ctx.fillText("EMERGENCY INFO", 40, 250);
 
     ctx.fillStyle = "#111827";
-    ctx.font = "20px Inter";
+    ctx.font = "22px Inter";
 
-    let y = 310;
+    let y = 320;
+    const x1 = 60;
+    const x2 = 270;
 
-    const x1 = 60; 
-    const x2 = 280; 
-
-    const rw = (label: string, value?: string) => {
+    const row = (label: string, value?: string) => {
       ctx.fillText(label, x1, y);
       ctx.fillText(value || "—", x2, y);
-      y += 40;
+      y += 42;
     };
 
-    rw("Emergency Contact", params.emergencyName);
-    rw("Contact Number", params.emergencyNumber);
-    rw("Blood Group", params.bloodGroup);
+    row("Emergency Contact", params.emergencyName);
+    row("Contact Number", params.emergencyNumber);
+    row("Blood Group", params.bloodGroup);
 
-    
-    y += 20;
-
-  
+    y += 25;
     ctx.fillText("Office Phone", x1, y);
     ctx.fillText("+91 7397720330", x2, y);
     y += 50;
 
-    ctx.font = "20px Inter";
     ctx.fillText("Office Address", x1, y);
-    y += 36;
+    y += 35;
 
-    
     const officeLines = [
       "7/2A, Shreesha Building,",
       "First Floor, Central Studio Road,",
@@ -227,18 +248,28 @@ export class IdCardService {
 
     officeLines.forEach((line) => {
       ctx.fillText(line, x2, y);
-      y += 26;
+      y += 28;
     });
 
     y += 40;
 
-   
-    ctx.fillText("Validation On: " + (params.joiningDate || "—"), x1, y);
-    ctx.fillText("Valid Till: " + (params.expireDate || "—"), x1 + 270, y);
+    ctx.fillText(
+      "Validation On: " + this.formatDate(params.joiningDate),
+      x1,
+      y
+    );
+    ctx.fillText(
+      "Valid Till: " + this.formatDate(params.expireDate),
+      x1 + 270,
+      y
+    );
 
     return this.canvasToBlob(canvas);
   }
 
+  // -------------------------------------------------------
+  // COMBINED
+  // -------------------------------------------------------
   async generateCombined(params: { front: any; back: any }): Promise<Blob> {
     const GAP = 50;
 

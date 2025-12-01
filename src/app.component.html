@@ -306,13 +306,10 @@
     ></ngx-recaptcha2>
   </div>
 
-  <!-- ADD THIS NOTE -->
   <div class="note-box">
     <p>
-      <strong>Note:</strong> Please verify the captcha, click on 
-      <strong>“Preview ID”</strong> to check your information, and then click 
-      <strong>“Submit”</strong>. After submitting, please wait until you see the 
-      confirmation message.
+      <strong>Note:</strong> Please verify the captcha, click
+      <strong>“Preview ID”</strong>, then click <strong>“Submit”</strong>.
     </p>
   </div>
 
@@ -341,6 +338,15 @@
   </div>
 </div>
 
+<!-- FINAL CORRECT POSITION -->
+<!-- FINAL CORRECT POSITION -->
+<div class="loading-overlay" *ngIf="isSubmitting">
+  <div class="loader"></div>
+  <p>Please wait... Submitting your details</p>
+</div>
+
+
+</form>
 <div
   class="id-preview-container"
   *ngIf="previewVisible && (frontPreviewUrl() || backPreviewUrl())"

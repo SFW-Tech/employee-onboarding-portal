@@ -652,7 +652,7 @@ export class AppComponent {
         panelClass: ["toast-error"],
       });
     } finally {
-      this.isSubmitting = true;
+      this.isSubmitting = false;
     }
   }
 

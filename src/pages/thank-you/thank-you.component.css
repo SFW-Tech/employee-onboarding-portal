@@ -16,7 +16,6 @@
 
 
 
-/* Top-left logo */
 .thank-logo {
   position: absolute;
   top: 20px;
@@ -25,7 +24,7 @@
   z-index: 2;
 }
 
-/* Responsive logo */
+
 @media (max-width: 768px) {
   .thank-logo {
     width: 100px;
@@ -41,3 +40,5 @@
     left: 12px;
   }
 }
+
+

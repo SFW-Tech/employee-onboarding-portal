@@ -189,7 +189,7 @@
 
             <app-file-input
               formControlName="id_proof"
-              label="Aadhaar Card"
+              label="Aadhaar Card*"
               fileLabel="IDProof"
               accept="image/*,.pdf"
             ></app-file-input>
@@ -203,7 +203,7 @@
 
             <app-file-input
               formControlName="pan_card"
-              label="PAN Card"
+              label="PAN Card*"
               fileLabel="PANCard"
               accept="image/*,.pdf"
             ></app-file-input>
@@ -307,10 +307,12 @@
   </div>
 
   <div class="note-box">
-    <p>
-      <strong>Note:</strong> Please verify the captcha, click
-      <strong>“Preview ID”</strong>, then click <strong>“Submit”</strong>.
-    </p>
+   <p>
+  <strong>Note:</strong> All uploaded files must be under <strong>5 MB</strong> and all
+  required fields marked with <strong>*</strong> must be completed. Please verify
+  the captcha, then double-click <strong>“Preview ID”</strong>, followed by
+  <strong>“Submit”</strong>, and wait until the success page is displayed.
+   </p>
   </div>
 
   <div class="button-group">

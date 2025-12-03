@@ -100,8 +100,8 @@ export class AppComponent {
     { id: "female", name: "Female" },
     { id: "other", name: "Other" },
   ];
-
   bloodGroupOptions: Option[] = [
+    // --- Standard ABO + Rh ---
     { id: "A+", name: "A+" },
     { id: "A-", name: "A-" },
     { id: "B+", name: "B+" },
@@ -110,6 +110,83 @@ export class AppComponent {
     { id: "AB-", name: "AB-" },
     { id: "O+", name: "O+" },
     { id: "O-", name: "O-" },
+
+    // --- ABO Subgroups ---
+    { id: "A1+", name: "A1+" },
+    { id: "A1-", name: "A1-" },
+    { id: "A2+", name: "A2+" },
+    { id: "A2-", name: "A2-" },
+    { id: "A1B+", name: "A1B+" },
+    { id: "A1B-", name: "A1B-" },
+    { id: "A2B+", name: "A2B+" },
+    { id: "A2B-", name: "A2B-" },
+
+    // --- Bombay Phenotype ---
+    { id: "Oh+", name: "Bombay Oh+" },
+    { id: "Oh-", name: "Bombay Oh-" },
+
+    // --- Rh Rare Types ---
+    { id: "Rh-null", name: "Rh-null (Golden Blood)" },
+    { id: "Weak-D", name: "Weak D" },
+    { id: "Partial-D", name: "Partial D" },
+
+    // --- Kell System ---
+    { id: "K", name: "K (Kell)" },
+    { id: "k", name: "k (Cellano)" },
+    { id: "Kpa", name: "Kpa" },
+    { id: "Kpb", name: "Kpb" },
+    { id: "Jsa", name: "Jsa" },
+    { id: "Jsb", name: "Jsb" },
+
+    // --- Duffy System ---
+    { id: "Fya", name: "Fya" },
+    { id: "Fyb", name: "Fyb" },
+    { id: "Fy(a-b-)", name: "Fy(a−b−)" },
+
+    // --- Kidd System ---
+    { id: "Jka", name: "Jka" },
+    { id: "Jkb", name: "Jkb" },
+    { id: "Jk(a-b-)", name: "Jk(a−b−)" },
+
+    // --- MNS System ---
+    { id: "M", name: "M" },
+    { id: "N", name: "N" },
+    { id: "S", name: "S" },
+    { id: "s", name: "s" },
+    { id: "U", name: "U" },
+
+    // --- Lewis System ---
+    { id: "Lea", name: "Lea" },
+    { id: "Leb", name: "Leb" },
+
+    // --- Lutheran System ---
+    { id: "Lua", name: "Lua" },
+    { id: "Lub", name: "Lub" },
+
+    // --- P System ---
+    { id: "P1", name: "P1" },
+    { id: "P2", name: "P2" },
+    { id: "P1k", name: "P1k" },
+    { id: "P2k", name: "P2k" },
+
+    // --- Diego System ---
+    { id: "Dia", name: "Dia" },
+    { id: "Dib", name: "Dib" },
+
+    // --- Colton System ---
+    { id: "Coa", name: "Coa" },
+    { id: "Cob", name: "Cob" },
+
+    // --- Dombrock System ---
+    { id: "Doa", name: "Doa" },
+    { id: "Dob", name: "Dob" },
+
+    // --- Yt System ---
+    { id: "Yta", name: "Yta" },
+    { id: "Ytb", name: "Ytb" },
+
+    // --- Xg System ---
+    { id: "Xga", name: "Xga" },
   ];
 
   constructor() {
@@ -642,7 +719,6 @@ export class AppComponent {
       this.snack.open("Form submitted successfully!", "OK", {
         duration: 3000,
         panelClass: ["toast-success"],
-        
       });
       this.router.navigate(["/thank-you"]);
     } catch (err) {
@@ -657,7 +733,6 @@ export class AppComponent {
   }
 
   onReset(): void {
-
     this.employeeForm.reset();
     this.captchaVerified = false;
     this.frontPreviewUrl.set(null);
